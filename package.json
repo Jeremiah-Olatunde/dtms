@@ -1,0 +1,25 @@
+{
+  "name": "dtms",
+  "version": "0.0.0",
+  "description": "repository for the dtms website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeremiah-Olatunde/dtms.git"
+  },
+  "keywords": [
+    "dtms",
+    "tailor",
+    "management",
+    "system"
+  ],
+  "author": "Jesuseun Jeremiah Olatunde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeremiah-Olatunde/dtms/issues"
+  },
+  "homepage": "https://github.com/Jeremiah-Olatunde/dtms#readme"
+}
