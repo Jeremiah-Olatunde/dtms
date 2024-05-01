@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+      "strict": true,
+      "module": "nodenext",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "target": "esnext",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "lib": ["dom", "esnext"],
+      "noImplicitAny": true,
+      "moduleResolution": "nodenext",
+      "sourceMap": true,
+      "outDir": "dist",
+      "baseUrl": ".",
+      "paths": {
+          "*": [
+              "node_modules/@types/*",
+              "src/types/*"
+          ]
+      }
+  },
+  "include": [ "src/**/*" ]
+}

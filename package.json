@@ -4,7 +4,9 @@
   "description": "repository for the dtms website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec tsx ./src/index.ts",
+    "prettier-watch": "onchange \"**/*.ts\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/Jeremiah-Olatunde/dtms/issues"
   },
-  "homepage": "https://github.com/Jeremiah-Olatunde/dtms#readme"
+  "homepage": "https://github.com/Jeremiah-Olatunde/dtms#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "onchange": "^7.1.0",
+    "prettier": "^3.2.5"
+  }
 }
