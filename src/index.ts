@@ -2,7 +2,7 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 
 import chalk from "chalk";
-import { config } from "dotenv";
+import "dotenv/config";
 
 import cors from "cors";
 import helmet from "helmet";
@@ -12,8 +12,6 @@ import express from "express";
 import nunjucks from "nunjucks";
 import * as session from "express-session";
 import MySQLStore from "express-mysql-session";
-
-config();
 
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
