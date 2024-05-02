@@ -7,7 +7,7 @@ import {
 
 import { sequelize } from "./db.js";
 
-type Measurements = Partial<
+export type Measurements = Partial<
   Record<
     | "ankle"
     | "armhole"
@@ -29,6 +29,8 @@ type Measurements = Partial<
   >
 >;
 
+export type Gender = "male" | "female";
+
 class Client extends Model<
   InferAttributes<Client>,
   InferCreationAttributes<Client>
@@ -38,7 +40,9 @@ class Client extends Model<
   declare phone: string;
   declare lastName: string;
   declare firstName: string;
+
   declare image: null | string;
+  declare gender: null | Gender;
   declare location: null | string;
   declare measurements: null | Measurements;
 }
@@ -71,6 +75,7 @@ Client.init(
       type: DataTypes.STRING,
     },
 
+    gender: DataTypes.ENUM("male", "female"),
     image: DataTypes.STRING,
     location: DataTypes.STRING,
 
