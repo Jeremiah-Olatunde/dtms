@@ -47,9 +47,9 @@ const app = express()
 
 app.listen(PORT, () => {
   console.log(
-    `[${chalk.dim(new Date().toTimeString().split(" ")[0])}]`,
-    chalk.bgGreen("dtms-server"),
-    chalk.green(`listening on port ${PORT}`),
+    chalk.green("[dtms-server]"),
+    `running on port`,
+    chalk.greenBright(`${PORT}`),
   );
 });
 
