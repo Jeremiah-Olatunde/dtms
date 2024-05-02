@@ -6,9 +6,8 @@ import {
 } from "sequelize";
 import { sequelize } from "./db.js";
 
-type Socials = Partial<
-  Record<"facebook" | "instagram" | "linkedin" | "twitter", string>
->;
+export const SOCIALS = ["facebook", "instagram", "linkedin", "twitter"];
+type Socials = Partial<Record<(typeof SOCIALS)[number], string>>;
 
 class Tailor extends Model<
   InferAttributes<Tailor>,
