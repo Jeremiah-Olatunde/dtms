@@ -13,7 +13,6 @@ class Review extends Model<
   declare uid: string;
   declare text: string;
   declare rating: number;
-  declare design: string;
   declare tailor: string;
   declare client: string;
 }
@@ -24,10 +23,6 @@ Review.init(
       unique: true,
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.CHAR(21),
-    },
-    design: {
-      allowNull: false,
       type: DataTypes.CHAR(21),
     },
     tailor: {
