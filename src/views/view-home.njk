@@ -258,174 +258,36 @@
       </div>
       <div class="swiper mySwiper homec-slider-property pd-btm-30 loading">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit2.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 15,000
-                  </div>
+          {% for design in designs %}
+            <div class="swiper-slide">
+              <div class="homec-property">
+                <div class="homec-property__head">
+                  <img
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                    class="outfit-image"
+                    src="{{ design.image }}"
+                    alt="#"
+                  />
+                  <!--Removed tailor and favorite badges-->
                 </div>
-                <h3 class="homec-agent__title">2 Piece Women's Trad</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
+                <div class="homec-property__body">
+                  <div class="homec-property__topbar">
+                    <div class="homec-property__price">
+                      <span>Price: </span> NGN {{ design.price | formatPrice }}
+                    </div>
+                  </div>
+                  <h3 class="homec-agent__title">{{ design.description }}</h3>
+                  <a
+                    href="/user/tailor/profile/{{ design.tailor }}"
+                    class="homec-btn homec-btn__second small-btn"
+                    style="font-size: 18px;"
+                    ><span>View Tailor Profile</span></a
+                  >
+                </div>
               </div>
             </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit3.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 23,000
-                  </div>
-                </div>
-                <h3 class="homec-agent__title">2 Piece Men's Trad</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit4.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 12,000
-                  </div>
-                </div>
-                <h3 class="homec-agent__title">Red Men's Tradprint Trouser</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit2.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 15,000
-                  </div>
-                </div>
-                <h3 class="homec-agent__title">2 Piece Women's Trad</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit3.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 23,000
-                  </div>
-                </div>
-                <h3 class="homec-agent__title">2 Piece Men's Trad</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="homec-property">
-              <div class="homec-property__head">
-                <img
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  class="outfit-image"
-                  src="img/outfit4.jpg"
-                  alt="#"
-                />
-                <!--Removed tailor and favorite badges-->
-              </div>
-              <div class="homec-property__body">
-                <div class="homec-property__topbar">
-                  <div class="homec-property__price">
-                    <span>Price: </span> NGN 12,000
-                  </div>
-                </div>
-                <h3 class="homec-agent__title">Red Men's Tradprint Trouser</h3>
-                <a
-                  href="agent-detail.html"
-                  class="homec-btn homec-btn__second small-btn"
-                  style="font-size: 18px;"
-                  ><span>View Tailor Profile</span></a
-                >
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
       <div
@@ -561,132 +423,44 @@
         <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-12">
           <div class="swiper mySwiper homec-slider-testimonial--v2 loading">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="homec-testimonial homec-testimonial--v2">
-                  <div class="homec-testimonial__main">
-                    <ul class="homec-rating list-none mg-btm-15">
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <span
-                        class="homec-primary-color"
-                        style="font-weight: 600;"
-                        >10/10</span
-                      >
-                    </ul>
-                    <p class="homec-testimonial__text">
-                      “D-TMS transformed my tailoring business! The seamless
-                      order management and easy communication with clients make
-                      it a must-have for any tailor. It's like having a personal
-                      assistant for my tailoring services."
-                    </p>
-                    <div class="homec-testimonial__bottom mg-top-10">
-                      <div class="homec-testimonial__author">
-                        <div class="homec-testimonial__author--info">
-                          <h5 class="homec-testimonial__author--title">
-                            Ojo Jacob
-                          </h5>
-                          <p class="homec-testimonial__author--position">
-                            User
-                          </p>
+              {% for review in reviews %}
+                <div class="swiper-slide">
+                  <div class="homec-testimonial homec-testimonial--v2">
+                    <div class="homec-testimonial__main">
+                      <ul class="homec-rating list-none mg-btm-15">
+                        {% for i in range(0, (review.rating / 2) | round) %}
+                          <li><i class="fa-solid fa-star"></i></li>
+                        {% endfor %}
+                        <span
+                          class="homec-primary-color"
+                          style="font-weight: 600;"
+                          >{{ review.rating }}/10</span
+                        >
+                      </ul>
+                      <p class="homec-testimonial__text">{{ review.text }}</p>
+                      <div class="homec-testimonial__bottom mg-top-10">
+                        <div class="homec-testimonial__author">
+                          <div class="homec-testimonial__author--info">
+                            <h5 class="homec-testimonial__author--title">
+                              {{ review.client.firstName }}
+                              {{ review.client.lastName }}
+                            </h5>
+                            <p class="homec-testimonial__author--position">
+                              Client
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="homec-testimonial__img">
-                    <div class="homec-testimonial__quote">
-                      <i class="fa-solid fa-quote-left"></i>
-                    </div>
-                    <img src="img/client-detail.png" alt="#" />
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="homec-testimonial homec-testimonial--v2">
-                  <div class="homec-testimonial__main">
-                    <ul class="homec-rating list-none mg-btm-15">
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <span
-                        class="homec-primary-color"
-                        style="font-weight: 600;"
-                        >10/10</span
-                      >
-                    </ul>
-                    <p class="homec-testimonial__text">
-                      “As a client, D-TMS made finding the perfect tailor a
-                      breeze. The detailed profiles and transparent order
-                      process gave me confidence in my choices. Plus, the secure
-                      payment system keeps everything stress-free."
-                    </p>
-                    <div class="homec-testimonial__bottom mg-top-10">
-                      <div class="homec-testimonial__author">
-                        <div class="homec-testimonial__author--info">
-                          <h5 class="homec-testimonial__author--title">
-                            Johnson Rebekah
-                          </h5>
-                          <p class="homec-testimonial__author--position">
-                            User
-                          </p>
-                        </div>
+                    <div class="homec-testimonial__img">
+                      <div class="homec-testimonial__quote">
+                        <i class="fa-solid fa-quote-left"></i>
                       </div>
+                      <img src="{{ review.client.image }}" alt="#" />
                     </div>
-                  </div>
-                  <div class="homec-testimonial__img">
-                    <div class="homec-testimonial__quote">
-                      <i class="fa-solid fa-quote-left"></i>
-                    </div>
-                    <img src="img/review-author2.jpg" alt="#" />
                   </div>
                 </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="homec-testimonial homec-testimonial--v2">
-                  <div class="homec-testimonial__main">
-                    <ul class="homec-rating list-none mg-btm-15">
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <li><i class="fa-solid fa-star"></i></li>
-                      <span
-                        class="homec-primary-color"
-                        style="font-weight: 600;"
-                        >10/10</span
-                      >
-                    </ul>
-                    <p class="homec-testimonial__text">
-                      “This platform is a game-changer! The tailor-client
-                      matching is spot-on, and the order flow is incredibly
-                      smooth. It's user-friendly, efficient, and brings a new
-                      level of professionalism to the tailoring experience."
-                    </p>
-                    <div class="homec-testimonial__bottom mg-top-10">
-                      <div class="homec-testimonial__author">
-                        <div class="homec-testimonial__author--info">
-                          <h5 class="homec-testimonial__author--title">
-                            Chukwuka Chidera
-                          </h5>
-                          <p class="homec-testimonial__author--position">
-                            User
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="homec-testimonial__img">
-                    <div class="homec-testimonial__quote">
-                      <i class="fa-solid fa-quote-left"></i>
-                    </div>
-                    <img src="img/review-author3.jpg" alt="#" />
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
           <div class="swiper-pagination swiper-pagination__testimonial"></div>

@@ -13,6 +13,8 @@ import nunjucks from "nunjucks";
 import * as session from "express-session";
 import MySQLStore from "express-mysql-session";
 
+import { router as home } from "./routes/router-home.js";
+
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
 
@@ -53,9 +55,14 @@ app.listen(PORT, () => {
   );
 });
 
-nunjucks.configure(resolve(DIRECTORY, "./views"), {
-  express: app,
-  autoescape: true,
-});
+nunjucks
+  .configure(resolve(DIRECTORY, "./views"), {
+    express: app,
+    autoescape: true,
+  })
+  .addFilter("formatPrice", (price: number): string => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  });
 
-app.get("/", (_, response) => response.render("view-home.njk"));
+app.get("/", (_, response) => response.redirect("/home"));
+app.use("/home", home);
