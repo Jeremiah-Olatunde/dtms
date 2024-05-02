@@ -7,26 +7,27 @@ import {
 
 import { sequelize } from "./db.js";
 
+export const MEASUREMENTS = [
+  "ankle",
+  "armhole",
+  "bicep",
+  "chest",
+  "calf",
+  "hips",
+  "inseam",
+  "knee",
+  "neck",
+  "outseam",
+  "shirt-length",
+  "shoulder-width",
+  "sleeve-length",
+  "thigh",
+  "waist",
+  "writst",
+] as const;
+
 export type Measurements = Partial<
-  Record<
-    | "ankle"
-    | "armhole"
-    | "bicep"
-    | "chest"
-    | "calf"
-    | "hips"
-    | "inseam"
-    | "knee"
-    | "neck"
-    | "outseam"
-    | "shirt-length"
-    | "shoulder-width"
-    | "sleeve-length"
-    | "thigh"
-    | "waist"
-    | "writst",
-    number
-  >
+  Record<(typeof MEASUREMENTS)[number], number>
 >;
 
 export type Gender = "male" | "female";
