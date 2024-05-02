@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec tsx ./src/index.ts",
-    "prettier-watch": "onchange \"**/*.ts\" -- prettier --write --ignore-unknown {{changed}}"
+    "prettier-watch": "onchange \"**/*.ts\" \"**/*.njk\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -26,11 +26,24 @@
   },
   "homepage": "https://github.com/Jeremiah-Olatunde/dtms#readme",
   "devDependencies": {
+    "@types/imagemin": "^8.0.5",
+    "@types/imagemin-jpegtran": "^5.0.4",
+    "@types/imagemin-pngquant": "^8.0.0",
+    "@types/imagemin-svgo": "^10.0.5",
+    "imagemin": "^8.0.1",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
     "nodemon": "^3.1.0",
     "onchange": "^7.1.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "prettier-plugin-jinja-template": "^1.4.0"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/express-mysql-session": "^3.0.5",
@@ -38,6 +51,7 @@
     "@types/helmet": "^4.0.0",
     "@types/morgan": "^1.9.9",
     "@types/nunjucks": "^3.2.6",
+    "bcrypt": "^5.1.1",
     "chalk": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -47,6 +61,8 @@
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
     "mysql2": "^3.9.7",
-    "nunjucks": "^3.2.4"
+    "nanoid": "^5.0.7",
+    "nunjucks": "^3.2.4",
+    "sequelize": "^6.37.3"
   }
 }
