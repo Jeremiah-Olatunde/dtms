@@ -57,3 +57,5 @@ nunjucks.configure(resolve(DIRECTORY, "./views"), {
   express: app,
   autoescape: true,
 });
+
+app.get("/", (_, response) => response.render("view-home.njk"));
