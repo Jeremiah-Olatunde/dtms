@@ -13,8 +13,17 @@ import nunjucks from "nunjucks";
 import * as session from "express-session";
 import MySQLStore from "express-mysql-session";
 
+import { createMockUser } from "./models/mock-user.js";
+
+import { router as home } from "./routes/router-home.js";
+import { router as users } from "./routes/router-user.js";
+
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
+
+// fill database with mock users on app initialization
+// comment this out after first run;
+// await createMockUser(10, true);
 
 const app = express()
   .use(cors())
@@ -44,6 +53,9 @@ const app = express()
       }),
     }),
   );
+
+app.use("/home", home);
+app.use("/users", users);
 
 app.listen(PORT, () => {
   console.log(

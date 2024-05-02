@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script deref src="/js/htmx.min.js"></script>
+    <title>D-TMS | Deploy</title>
+  </head>
+  <body>
+    <header>
+      <h1>D-TMS Deployment Testing</h1>
+      <h2>Lorem ipsum dolor, sit amet consectetur.</h2>
+    </header>
+
+    <section>
+      <ul>
+        {% for user in users %}
+          <li>
+            <b>user:</b> {{ user.firstName }} {{ user.lastName }}
+            <button
+              hx-get="/users/{{ user.uid }}"
+              hx-target="[user-output]"
+              hx-swap="innerHTML"
+            >
+              view details
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h2>User Details</h2>
+      <div user-output>click a user to see their details</div>
+    </section>
+  </body>
+</html>
