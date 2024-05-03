@@ -79,7 +79,7 @@ export async function mockTailors(
     const image = toImageUrl(imageDir, random.choice(images));
     const phone = faker.string.numeric(11);
     const email = faker.internet.email({ firstName, lastName });
-    const about = faker.lorem.paragraph(3);
+    const about = faker.lorem.paragraph(6);
     const bank = random.choice(["zenith", "first bank", "fcmb", "access"]);
     const account = faker.finance.accountNumber();
     const location = faker.location.streetAddress();
@@ -140,11 +140,11 @@ export async function mockDesigns(
     tailors.flatMap(({ uid: tailor }): Promise<Design>[] => {
       const designs: Promise<Design>[] = [];
 
-      for (let i = 0; i < random.range(1, 10); i++) {
+      for (let i = 0; i < random.range(50, 100); i++) {
         const uid = nanoid();
         const ranking = random.range(5, 10);
         const price = random.range(10_000, 1_000_000);
-        const description = faker.lorem.sentence(5);
+        const description = faker.lorem.sentence(3);
 
         const type = random.choice(TYPES);
         const occassion = random.choice(OCCASSIONS);
@@ -194,7 +194,7 @@ export async function mockReview(
           uid: nanoid(),
           client,
           tailor,
-          text: faker.lorem.paragraph(2),
+          text: faker.lorem.paragraph(6),
           rating: random.range(3, 10),
         });
       });
