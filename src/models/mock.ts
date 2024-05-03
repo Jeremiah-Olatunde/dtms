@@ -20,14 +20,12 @@ function toImageUrl(directory: string, filename: string): string {
 
 export async function mockClients(
   size: number,
-  imageDir: Record<"male" | "female", string>,
+  imageDir: string,
   reset?: boolean,
 ): Promise<Client[]> {
   if (reset) await Client.sync({ force: true });
 
   const clients: Client[] = [];
-  const imagesMale: string[] = readdirSync(imageDir.male);
-  const imagesFemale: string[] = readdirSync(imageDir.female);
 
   for (let i = 0; i < size; i++) {
     const uid = nanoid();
@@ -37,10 +35,9 @@ export async function mockClients(
 
     const phone = faker.string.numeric(11);
     const email = faker.internet.email({ firstName, lastName });
-
     const image = toImageUrl(
-      imageDir[gender],
-      random.choice(gender === "male" ? imagesMale : imagesFemale),
+      `${imageDir}\\${gender}`,
+      random.choice(readdirSync(`${imageDir}\\${gender}`)),
     );
 
     const measurements = Object.fromEntries(
@@ -82,6 +79,10 @@ export async function mockTailors(
     const image = toImageUrl(imageDir, random.choice(images));
     const phone = faker.string.numeric(11);
     const email = faker.internet.email({ firstName, lastName });
+    const about = faker.lorem.paragraph(3);
+    const bank = random.choice(["zenith", "first bank", "fcmb", "access"]);
+    const account = faker.finance.accountNumber();
+    const location = faker.location.streetAddress();
 
     const socials = Object.fromEntries(
       SOCIALS.map((key) => [
@@ -99,6 +100,10 @@ export async function mockTailors(
         lastName,
         firstName,
         socials,
+        about,
+        bank,
+        account,
+        location,
       }),
     );
   }
@@ -132,25 +137,39 @@ export async function mockDesigns(
   if (reset) await Design.sync({ force: true });
 
   return Promise.all(
-    tailors.flatMap(({ uid }): Promise<Design>[] => {
+    tailors.flatMap(({ uid: tailor }): Promise<Design>[] => {
       const designs: Promise<Design>[] = [];
 
       for (let i = 0; i < random.range(1, 10); i++) {
+        const uid = nanoid();
+        const ranking = random.range(5, 10);
+        const price = random.range(10_000, 1_000_000);
+        const description = faker.lorem.sentence(5);
+
+        const type = random.choice(TYPES);
+        const occassion = random.choice(OCCASSIONS);
+        const group = random.choice(["adults", "kids"] as const);
+        const gender = random.choice(["male", "female"] as const);
+        const style = random.choice(["english", "traditional"] as const);
+
+        const image = toImageUrl(
+          `${imageDir}\\${gender}`,
+          random.choice(readdirSync(`${imageDir}\\${gender}`)),
+        );
+
         designs.push(
           Design.create({
-            uid: nanoid(),
-            tailor: uid,
-
-            ranking: random.range(5, 10),
-            price: random.range(10_000, 1_000_000),
-            description: faker.lorem.sentence(5),
-            image: toImageUrl(imageDir, random.choice(readdirSync(imageDir))),
-
-            type: random.choice(TYPES),
-            occassion: random.choice(OCCASSIONS),
-            group: random.choice(["adults", "kids"] as const),
-            gender: random.choice(["male", "female"] as const),
-            style: random.choice(["english", "traditional"] as const),
+            uid,
+            tailor,
+            ranking,
+            price,
+            description,
+            type,
+            occassion,
+            group,
+            gender,
+            style,
+            image,
           }),
         );
       }

@@ -1,4 +1,4 @@
-var swiper = new window.Swiper(".homec-slider-property", {
+new window.Swiper(".homec-slider-property", {
     autoplay: {
         delay: 4000,
     },
@@ -37,7 +37,7 @@ var swiper = new window.Swiper(".homec-slider-property", {
     },
 });
 
-var swiper = new window.Swiper(".homec-slider-agent", {
+new window.Swiper(".homec-slider-agent", {
     autoplay: {
         delay: 4000,
     },
@@ -79,7 +79,7 @@ var swiper = new window.Swiper(".homec-slider-agent", {
     },
 });
 
-var swiper = new window.Swiper(".homec-slider-testimonial--v2", {
+new window.Swiper(".homec-slider-testimonial--v2", {
     autoplay: {
         delay: 3500,
     },
@@ -97,7 +97,7 @@ var swiper = new window.Swiper(".homec-slider-testimonial--v2", {
     slidesPerView: "1",
 });
 
-var swiper = new window.Swiper(".homec-slider-client", {
+new window.Swiper(".homec-slider-client", {
   autoplay: {
       delay: 3500,
   },
@@ -131,9 +131,9 @@ var swiper = new window.Swiper(".homec-slider-client", {
   },
 });
 
-const modal = document.getElementById('imageModal');
-const outfitImages = document.querySelectorAll('.outfit-image');
-const modalInner = document.querySelector('.homec-modal__inner');
+var modal = document.getElementById('imageModal');
+var outfitImages = document.querySelectorAll('.outfit-image');
+var modalInner = document.querySelector('.homec-modal__inner');
 
 // Loop through each image and attach click event listener
 outfitImages.forEach(function(image) {
@@ -145,7 +145,7 @@ outfitImages.forEach(function(image) {
 });
 
 // Get the close button
-const closeButton = document.querySelector('.homec-modal__close');
+var closeButton = document.querySelector('.homec-modal__close');
 
 // When the user clicks on the close button, close the modal
 if(closeButton){
