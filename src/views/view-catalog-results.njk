@@ -1,0 +1,59 @@
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="homec-grid" role="tabpanel">
+    <div class="row">
+      {% for design in designs %}
+        <div class="col-md-6 col-12 mg-top-30">
+          <div class="homec-property">
+            <div class="homec-property__head">
+              <img
+                data-bs-toggle="modal"
+                data-bs-target="#imageModal"
+                class="outfit-image"
+                src="{{ design.image }}"
+                alt="#"
+              />
+              <!--Removed tailor and favorite badges-->
+            </div>
+            <div class="homec-property__body">
+              <div class="homec-property__topbar">
+                <div class="homec-property__price">
+                  <span>Price: </span> NGN {{ design.price | formatPrice }}
+                </div>
+              </div>
+              <h3 class="homec-agent__title">{{ design.description }}</h3>
+              <a
+                href="/user/tailor/profile/{{ design.tailor }}"
+                class="homec-btn homec-btn__second small-btn"
+                style="font-size: 18px;"
+                ><span>View Tailor Profile</span></a
+              >
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!--Bottom Pagination section-->
+    <div class="row mg-top-40">
+      <div class="homec-pagination">
+        <ul class="homec-pagination__list list-none">
+          {% for i in range(0, (filteration.filtrate / pagination.limit) | ceil) %}
+            <li
+              class="{{ "active" if i === (pagination.offset / pagination.limit) else "" }}"
+            >
+              <a
+                hx-get="/catalog?offset={{ i * pagination.limit }}&limit={{ pagination.limit }}"
+                hx-include="[hx-designs-form]"
+                hx-boost="true"
+                hx-target="body"
+                hx-push-url="true"
+                style="cursor: pointer;"
+              >
+                {{ (i + 1).toString().padStart(2, "0") }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

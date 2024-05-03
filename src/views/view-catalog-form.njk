@@ -1,0 +1,50 @@
+<form
+  class="property-sidebar"
+  hx-designs-form
+  hx-include="[hx-designs-search]"
+  hx-get="/catalog?offset=0&limit={{ pagination.limit }}"
+  hx-trigger="input delay:750ms"
+  hx-push-url="true"
+  hx-target="body"
+>
+  <div class="property-sidebar__single">
+    {% for key, value in formData %}
+      <div class="property-sidebar__filters">
+        <h4 class="property-sidebar__title">
+          <label for="{{ key }}">{{ value.display }}</label>
+        </h4>
+
+        <div class="form-group tag-checkbox">
+          {% for option in value.options %}
+            <input
+              type="checkbox"
+              name="{{ value.action }}-{{ key }}"
+              id="{{ option }}"
+              value="{{ option }}"
+              {{ query[value.action + "-" + key] | ifIn(option, "checked") }}
+            />
+            <label for="{{ option }}">{{ option }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      <br />
+    {% endfor %}
+
+    <div class="property-sidebar__single mg-top-20">
+      <h4 class="property-sidebar__title">Price</h4>
+      <div class="" style="display: grid; grid-template-columns: 1fr .2fr 1fr;">
+        <input
+          type="number"
+          name="range-price"
+          value="{{ query["range-price"][0] }}"
+        />
+        <div style="display: grid; place-items: center;">to</div>
+        <input
+          type="number"
+          name="range-price"
+          value="{{ query["range-price"][1] }}"
+        />
+      </div>
+    </div>
+  </div>
+</form>

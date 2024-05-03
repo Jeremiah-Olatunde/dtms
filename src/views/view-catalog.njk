@@ -1,0 +1,37 @@
+{% extends "view-base.njk" %}
+{% block app %}
+  <!--this is overlay section at the beginning of the page-->
+  <section
+    class="breadcrumbs__content"
+    style="background-image: url(img/page-title-overlay2.png);"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="breadcrumb-content">
+            <h2 class="breadcrumb__title m-0">Latest Designs</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="homec-propertys pd-top-80 pd-btm-80">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">{% include "view-catalog-search.njk" %}</div>
+      </div>
+      <div class="row"></div>
+      <div class="row">
+        <div class="col-lg-4 col-12 mg-top-30">
+          {% include "view-catalog-form.njk" %}
+        </div>
+
+        <!--This is the search results section in form of tabs-->
+        <div class="col-lg-8 col-12">
+          {% include "view-catalog-results.njk" %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
