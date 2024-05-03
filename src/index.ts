@@ -75,7 +75,10 @@ nunjucks
   )
   .addFilter("min", Math.min)
   .addFilter("ceil", Math.ceil)
-  .addFilter("floor", Math.floor);
+  .addFilter("floor", Math.floor)
+  .addFilter("limit", (x: string, max: number): string => {
+    return x.split("").slice(0, max).join("");
+  });
 
 app.get("/", (_, response) => response.redirect("/home"));
 app.use("/home", home);
