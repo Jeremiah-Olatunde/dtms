@@ -3,3 +3,4 @@
 /build
 /.env
 /**/archive.ts
+/src/public/img-compressed
