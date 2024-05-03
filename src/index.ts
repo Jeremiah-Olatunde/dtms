@@ -14,6 +14,7 @@ import * as session from "express-session";
 import MySQLStore from "express-mysql-session";
 
 import { router as home } from "./routes/router-home.js";
+import { router as catalog } from "./routes/router-catalog.js";
 
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -62,7 +63,19 @@ nunjucks
   })
   .addFilter("formatPrice", (price: number): string => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  });
+  })
+  .addFilter(
+    "ifIn",
+    <T>(xs: undefined | string | string[], x: string, y: T): T | null => {
+      if (xs === undefined) return null;
+      else if (typeof xs === "string") return xs === x ? y : null;
+      else return xs.includes(x) ? y : null;
+    },
+  )
+  .addFilter("min", Math.min)
+  .addFilter("ceil", Math.ceil)
+  .addFilter("floor", Math.floor);
 
 app.get("/", (_, response) => response.redirect("/home"));
 app.use("/home", home);
+app.use("/catalog", catalog);
