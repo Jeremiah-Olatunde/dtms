@@ -2,6 +2,10 @@
   "name": "dtms",
   "type": "module",
   "version": "0.0.0",
+  "engines": {
+    "node": "21.6.0",
+    "npm": "10.2.4"
+  },
   "description": "repository for the dtms website",
   "main": "index.js",
   "scripts": {
