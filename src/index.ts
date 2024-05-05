@@ -23,7 +23,13 @@ const DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const app = express()
   .use(cors())
   .use(helmet())
-  .use(morgan("dev"))
+  .use(
+    morgan("dev", {
+      skip: ({ query: q, method: m }, { statusCode: sc }) => {
+        return !Object.keys(q).length && sc <= 200 && sc < 400 && m === "GET";
+      },
+    }),
+  )
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(express.static(resolve(DIRECTORY, "./public")))
