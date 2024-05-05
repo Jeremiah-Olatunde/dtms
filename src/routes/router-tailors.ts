@@ -36,7 +36,6 @@ router.get("/designs", async ({ query }, response) => {
   const { results: designs, metadata } =
     await DesignController.findByQuery(query);
 
-  console.log(query);
   response.render("view-tailor-profile-designs.njk", {
     query,
     designs,

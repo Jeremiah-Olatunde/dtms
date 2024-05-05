@@ -80,6 +80,8 @@
 })(window.jQuery);
 
 htmx.onLoad(() => {
+  $(".preloader").delay(100).fadeOut(500)
+
   new window.Swiper(".homec-slider-property", {
     autoplay: {
       delay: 4000,
