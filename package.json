@@ -11,7 +11,7 @@
     "clean": "rm -rf dist/*",
     "swc": "swc src -d dist --copy-files --strip-leading-paths",
     "build": "npm run clean & npm run swc",
-    "prettier-watch": "onchange \"**/*.js\" \"**/*.ts\" \"**/*.njk\" \"**/*.njk\" -e \"**/*.min.js\" -- prettier --write --ignore-unknown {{changed}}"
+    "prettier-watch": "onchange \"**\" --exclude-path .gitignore -- prettier --write --ignore-unknown {{changed}}"
   },
   "repository": {
     "type": "git",
