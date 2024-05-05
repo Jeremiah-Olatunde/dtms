@@ -26,27 +26,28 @@
     <link rel="stylesheet" href="/css/video-popup.min.css" />
     <link rel="stylesheet" href="/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="/css/theme-default.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/main.css" />
 
     <script defer src="/js/jquery.min.js"></script>
     <script defer src="/js/jquery-ui.min.js"></script>
     <script defer src="/js/jquery-migrate.js"></script>
-    <script defer src="/js/jquery.counterup.min.js"></script>
 
     <script defer src="/js/htmx.min.js"></script>
 
     <script defer src="/js/bootstrap.min.js"></script>
     <script defer src="/js/aos.min.js"></script>
-    <script defer src="/js/ckeditor.min.js"></script>
-    <script defer src="/js/video-popup.min.js"></script>
     <script defer src="/js/swiper-slider.min.js"></script>
-    <script defer src="/js/flex-slider.js"></script>
-    <script defer src="/js/waypoints.min.js"></script>
-    <script defer src="/js/jquery.counterup.min.js"></script>
-    <script defer src="/js/easing.min.js"></script>
-    <script defer src="/js/active.js"></script>
+    <script defer src="/main.js"></script>
   </head>
   <body>
+    <div class="preloader">
+      <div class="preloader-inner">
+        <div class="preloader-icon">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
     <!--This is the reduced page menu sidebar-->
     <div class="modal offcanvas-modal fade" id="offcanvas-modal">
       <div class="modal-dialog offcanvas-dialog">
@@ -402,6 +403,9 @@
       </div>
     </footer>
 
-    <script defer src="/js/home.js"></script>
+    <!--Scroll To Top -->
+    <a href="#" class="scrollToTop"
+      >Go Top<i class="fa-solid fa-angle-right"></i
+    ></a>
   </body>
 </html>
