@@ -1,24 +1,16 @@
 (function ($) {
   "use strict";
-  $(document).on("ready", function () {
-    /*====================================
-			Header Sticky JS
-		======================================*/
-    var activeSticky = $("#active-sticky"),
-      winDow = $(window);
-    winDow.on("scroll", function () {
-      var scroll = $(window).scrollTop(),
-        isSticky = activeSticky;
-      if (scroll < 50) {
-        isSticky.removeClass("is-sticky");
-      } else {
-        isSticky.addClass("is-sticky");
-      }
-    });
 
-    /*====================================
-			Aos Animate JS
-		======================================*/
+  document.addEventListener("DOMContentLoaded", function () {
+    //=== Header Sticky JS ====================================================
+    $(window).on("scroll", function () {
+      const scroll = $(window).scrollTop();
+      const action = scroll < 50 ? "remove" : "add";
+      $("#active-sticky")[`${action}Class`]("is-sticky");
+    });
+    //=========================================================================
+
+    //=== Aos Animate JS ======================================================
     window.AOS.init({
       duration: 1500,
       disable: !1,
@@ -26,105 +18,65 @@
       once: !0,
       easing: "ease",
     });
+    //=========================================================================
 
-    /*====================================
-			Scrool To Top JS
-		======================================*/
+    //=== Scrool To Top JS ====================================================
     let last = "";
 
-    function stickyMenu($targetMenu, $toggleClass) {
-      var top = $(window).scrollTop();
+    function stickyMenu(targetMenu, toggleClass) {
+      const top = $(window).scrollTop();
 
-      if ($(window).scrollTop() < 600) {
-        $targetMenu.removeClass($toggleClass);
+      if (600 < $(window).scrollTop()) {
+        const action = last < top ? "add" : "remove";
+        targetMenu[`${action}Class`](toggleClass);
+        last = top;
         return;
       }
 
-      $targetMenu[last < top ? "addClass" : "removeClass"]($toggleClass);
-
-      last = top;
+      targetMenu.removeClass(toggleClass);
     }
 
     $(window).on("scroll", function () {
       stickyMenu($(".sticky-header"), "active");
-      if ($(this).scrollTop() > 400) {
-        $(".scrollToTop").addClass("show");
-      } else {
-        $(".scrollToTop").removeClass("show");
-      }
+      const action = 400 < $(this).scrollTop() ? "add" : "remove";
+      $(".scrollToTop")[`${action}Class`]("show");
     });
 
-    $(".scrollToTop").on("click", function (e) {
-      e.preventDefault();
-      $("html, body").animate(
-        {
-          scrollTop: 0,
-        },
-        500,
-      );
+    $(".scrollToTop").on("click", function (event) {
+      event.preventDefault();
+      $("html, body").animate({ scrollTop: 0 }, 500);
       return false;
     });
+    //=========================================================================
   });
 
-  /*====================================
-			Mobile Menu
-		======================================*/
-  var $offcanvasNav = $("#offcanvas-menu a");
-  $offcanvasNav.on("click", function () {
+  //=== Mobile Menu ===========================================================
+  const offcanvasNav = $("#offcanvas-menu a");
+
+  offcanvasNav.on("click", function () {
     const link = $(this);
     const closestUl = link.closest("ul");
-    const activeLinks = closestUl.find(".active");
     const closestLi = link.closest("li");
+    const activeLinks = closestUl.find(".active");
     const linkStatus = closestLi.hasClass("active");
+
     let count = 0;
 
     closestUl.find("ul").slideUp(function () {
       if (++count == closestUl.find("ul").length)
         activeLinks.removeClass("active");
     });
+
     if (!linkStatus) {
       closestLi.children("ul").slideDown();
       closestLi.addClass("active");
     }
   });
+  //=========================================================================
 
-  /*====================================
-			Payment Button
-		======================================*/
-  // Add event listener to the bank button
-  // $('.payment-stripe-button').on( "click", function(){
-  // 	$('.payment-popup__top--digital').toggleClass('active');
-  // });
-
-  // Add event listener to the body
-  // $('body').on("click", function(e){
-  // 	// Check if the clicked element is not the payment button or any of its children
-  // 	if (!$(e.target).is('.payment-stripe-button') && !$.contains($('.payment-stripe-button')[0], e.target)) {
-  // 		// If not, remove the 'active' class from the payment popup
-  // 		$('.payment-popup__top--digital').removeClass('active');
-  // 	}
-  // });
-
-  // Add event listener to the bank button
-  // $('.payment-bank-button').on("click", function(){
-  // 	$('.payment-popup__top--bank').toggleClass('active');
-  // });
-
-  // Add event listener to the body
-  // $('body').on("click", function(e){
-  // 	// Check if the clicked element is not the bank button or any of its children
-  // 	if (!$(e.target).is('.payment-bank-button') && !$.contains($('.payment-bank-button')[0], e.target)) {
-  // 		// If not, remove the 'active' class from the bank popup
-  // 		$('.payment-popup__top--bank').removeClass('active');
-  // 	}
-  // });
-
-  /*====================================
-			Preloader JS
-		======================================*/
-  $(window).on("load", function (event) {
-    $(".preloader").delay(100).fadeOut(500);
-  });
+  //=== Preloader ===========================================================
+  $(window).on("load", () => $(".preloader").delay(100).fadeOut(500));
+  //=========================================================================
 })(window.jQuery);
 
 htmx.onLoad(() => {
@@ -261,37 +213,34 @@ htmx.onLoad(() => {
     },
   });
 
-  window.modal = document.getElementById("imageModal");
-  window.outfitImages = document.querySelectorAll(".outfit-image");
-  window.modalInner = document.querySelector(".homec-modal__inner");
+  const modal = document.getElementById("imageModal");
+  const outfitImages = document.querySelectorAll(".outfit-image");
+  const modalInner = document.querySelector(".homec-modal__inner");
 
-  // Loop through each image and attach click event listener
   outfitImages.forEach(function (image) {
-    image.onclick = function () {
-      // Set the image source and display the modal
+    image.onclick = (event) => {
       modal.style.display = "block";
-      modalInner.innerHTML =
-        '<img src="' +
-        this.src +
-        '" alt="Outfit Image" style="padding-top: 5%; padding-bottom: 5%; padding-left: 5%; padding-right: 5% ">'; // Adjust image size here
+      modalInner.innerHTML = `
+        <img src="${event.target.src}" 
+          alt="outfit image" 
+          style="
+            padding-top: 5%; 
+            padding-bottom: 5%; 
+            padding-left: 5%; 
+            padding-right: 5%"
+        >
+      `;
     };
   });
 
   // Get the close button
-  window.closeButton = document.querySelector(".homec-modal__close");
-
-  // When the user clicks on the close button, close the modal
-  if (closeButton) {
-    closeButton.onclick = function () {
-      modal.style.display = "none";
-    };
-  }
+  const closeButton = document.querySelector(".homec-modal__close");
+  closeButton?.addEventListener("click", () => (modal.style.display = "none"));
 
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
+  window.onclick = (event) => {
+    if (event.target !== modal) return;
+    modal.style.display = "none";
   };
 });
 

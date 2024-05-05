@@ -35,7 +35,7 @@
                 </li>
                 <li><i class="fa-solid fa-check"></i>Tailor-Client Harmony</li>
               </ul>
-              <a href="property-grid.html" class="homec-btn"
+              <a href="/catalog?offset=0&limit=4" class="homec-btn"
                 ><span>See All Designs</span></a
               >
             </div>
@@ -60,11 +60,14 @@
           data-aos="fade-in"
           data-aos-delay="400"
         >
-          <a href="property-grid.html" class="homec-features__single">
+          <a
+            href="/catalog?offset=0&limit=4&match-gender=male"
+            class="homec-features__single"
+          >
             <div class="homec-features__icon">
               <img
                 src="/img/menswear.png"
-                alt="/catalog?offset=0&limit=4&match-gender=male"
+                alt="/catalog?offset=0&limit=4&match-gender=male&match-group=adults"
               />
             </div>
             <div class="homec-features__content">
@@ -77,11 +80,14 @@
           data-aos="fade-in"
           data-aos-delay="600"
         >
-          <a href="property-grid.html" class="homec-features__single">
+          <a
+            href="/catalog?offset=0&limit=4&match-gender=female"
+            class="homec-features__single"
+          >
             <div class="homec-features__icon">
               <img
                 src="/img/womenswear.png"
-                alt="/catalog?offset=0&limit=4&match-gender=female"
+                alt="/catalog?offset=0&limit=4&match-gender=female&match-group=adults"
               />
             </div>
             <div class="homec-features__content">
@@ -94,7 +100,10 @@
           data-aos="fade-in"
           data-aos-delay="800"
         >
-          <a href="property-grid.html" class="homec-features__single">
+          <a
+            href="/catalog?offset=0&limit=4&match-group=kids"
+            class="homec-features__single"
+          >
             <div class="homec-features__icon">
               <img
                 src="/img/kidswear.png"
@@ -113,7 +122,7 @@
   <!--Designs Section-->
   <section
     class="homec-properties homec-bg-cover  pd-top-120 pd-btm-120"
-    style="background-image: url('img/bg-shape-four.svg');"
+    style="background-image: url('/img/bg-shape-four.svg');"
   >
     <div class="homec-shape">
       <div
@@ -146,7 +155,7 @@
               data-aos="fade-right"
               data-aos-delay="500"
             >
-              <a href="property-grid.html" class="homec-btn"
+              <a href="/catalog?offset=0&limit=4" class="homec-btn"
                 ><span>See All Designs</span></a
               >
             </div>
@@ -174,13 +183,23 @@
                       <span>Price: </span> NGN {{ design.price | formatPrice }}
                     </div>
                   </div>
-                  <h3 class="homec-agent__title">{{ design.description }}</h3>
+                  <h3 class="homec-agent__title">
+                    {% if design.description.length < 27 %}
+                      {{ design.description }}
+                    {% else %}
+                      {{ design.description.slice(0, -1) | limit(24) }}<i
+                        style="color: #C3C1DE"
+                        >...</i
+                      >
+                    {% endif %}
+                  </h3>
                   <a
-                    href="/user/tailor/profile/{{ design.tailor }}"
+                    href="/tailors/profile/{{ design.tailor }}"
                     class="homec-btn homec-btn__second small-btn"
                     style="font-size: 18px;"
-                    ><span>View Tailor Profile</span></a
                   >
+                    <span>View Tailor Profile</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -248,7 +267,7 @@
               <div class="homec-section__shape">
                 <span
                   class="homec-section__badge homec-section__badge--shape"
-                  style="background-image:url('img/section-shape.svg')"
+                  style="background-image:url('/img/section-shape.svg')"
                   >About D-TMS</span
                 >
               </div>

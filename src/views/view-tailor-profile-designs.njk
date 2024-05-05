@@ -85,7 +85,14 @@
                     </div>
                   </div>
                   <h3 class="homec-agent__title">
-                    {{ design.description | limit(24) }}
+                    {% if design.description.length < 27 %}
+                      {{ design.description }}
+                    {% else %}
+                      {{ design.description.slice(0, -1) | limit(24) }}<i
+                        style="color: #C3C1DE"
+                        >...</i
+                      >
+                    {% endif %}
                   </h3>
                 </div>
               </div>
