@@ -1,3 +1,5 @@
+{% import "templates.njk" as templates %}
+
 <div class="row mg-top-30">
   <div class="col-12" data-aos="fade-in" data-aos-delay="500">
     <div class="homec-property-bar">
@@ -67,35 +69,7 @@
         <div class="row">
           {% for design in designs %}
             <div class="col-md-4 col-12 mg-top-30">
-              <div class="homec-property">
-                <div class="homec-property__head">
-                  <img
-                    data-bs-toggle="modal"
-                    data-bs-target="#imageModal"
-                    class="outfit-image"
-                    src="{{ design.image }}"
-                    alt="#"
-                  />
-                  <!--Removed tailor and favorite badges-->
-                </div>
-                <div class="homec-property__body">
-                  <div class="homec-property__topbar">
-                    <div class="homec-property__price">
-                      <span>Price: </span> NGN {{ design.price | formatPrice }}
-                    </div>
-                  </div>
-                  <h3 class="homec-agent__title">
-                    {% if design.description.length < 27 %}
-                      {{ design.description }}
-                    {% else %}
-                      {{ design.description.slice(0, -1) | limit(24) }}<i
-                        style="color: #C3C1DE"
-                        >...</i
-                      >
-                    {% endif %}
-                  </h3>
-                </div>
-              </div>
+              {{ templates.design(design, false) }}
             </div>
           {% endfor %}
         </div>

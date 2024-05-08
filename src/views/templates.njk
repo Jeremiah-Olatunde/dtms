@@ -1,0 +1,75 @@
+{% macro design(design, view_tailor_btn = true) %}
+  <div class="homec-property">
+    <div class="homec-property__head">
+      <img
+        loading="lazy"
+        data-bs-toggle="modal"
+        data-bs-target="#imageModal"
+        class="outfit-image"
+        src="{{ design.image }}"
+        alt="{{ design.description }}"
+      />
+      <!--Removed tailor and favorite badges-->
+    </div>
+    <div class="homec-property__body">
+      <div class="homec-property__topbar">
+        <div class="homec-property__price">
+          <span>Price: </span> NGN {{ design.price | formatPrice }}
+        </div>
+      </div>
+      <h3 class="homec-agent__title">
+        {{ design.description | truncateText("...", 22) }}
+      </h3>
+      {% if view_tailor_btn %}
+        <a
+          href="/tailors/profile/{{ design.tailor }}"
+          class="homec-btn homec-btn__second small-btn"
+          style="font-size: 18px;"
+        >
+          <span>View Tailor Profile</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro review(review) %}
+  <div class="homec-testimonial homec-testimonial--v2">
+    <div class="homec-testimonial__main">
+      <ul class="homec-rating list-none mg-btm-15">
+        {% for i in range(0, (review.rating / 2) | round) %}
+          <li><i class="fa-solid fa-star"></i></li>
+        {% endfor %}
+        <span class="homec-primary-color" style="font-weight: 600;"
+          >{{ review.rating }}/10</span
+        >
+      </ul>
+      <span class="homec-primary-color">{{ review.createdAt }} </span>
+      <p class="homec-testimonial__text">{{ review.text }}</p>
+      <div class="homec-testimonial__bottom mg-top-10">
+        <div class="homec-testimonial__author">
+          <div class="homec-testimonial__author--info">
+            <h5 class="homec-testimonial__author--title">
+              {{ review.client.firstName }}
+              {{ review.client.lastName }}
+            </h5>
+            <p class="homec-testimonial__author--position">Client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="homec-testimonial__img">
+      <div class="homec-testimonial__quote">
+        <i class="fa-solid fa-quote-left"></i>
+      </div>
+      <img
+        loading="lazy"
+        src="{{ review.client.image }}"
+        alt="
+          photo of 
+          {{ review.client.firstName }} 
+          {{ review.client.lastName }}"
+      />
+    </div>
+  </div>
+{% endmacro %}

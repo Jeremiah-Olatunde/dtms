@@ -1,3 +1,5 @@
+{% import "templates.njk" as templates %}
+
 <!--This is the customer reviews section-->
 <section
   class="homec-bg-third-color homec-bg-cover  pd-top-120 pd-btm-70"
@@ -23,39 +25,8 @@
     </div>
     <div class="homec-pdetails-tab--review">
       {% for review in reviews %}
-        <div
-          class="homec-testimonial homec-testimonial--review homec-border mg-top-0"
-          style="margin: 20px 0"
-        >
-          <div class="homec-rating--main mg-btm-15">
-            <ul class="homec-rating list-none mg-btm-15">
-              {% for i in range(0, (review.rating / 2) | round) %}
-                <li><i class="fa-solid fa-star"></i></li>
-              {% endfor %}
-              <span class="homec-primary-color" style="font-weight: 600;"
-                >{{ review.rating }}/10</span
-              >
-            </ul>
-            <span class="homec-primary-color">{{ review.createdAt }} </span>
-          </div>
-          <p
-            class="homec-testimonial__text"
-            style="text-align: justify; width: 950px;"
-          >
-            {{ review.text }}
-          </p>
-          <div class="homec-testimonial__bottom">
-            <div class="homec-testimonial__author">
-              <img src="{{ review.client.image }}" alt="#" />
-              <div class="homec-testimonial__author--info">
-                <h5 class="homec-testimonial__author--title">
-                  {{ review.client.firstName }} {{ review.client.lastName }}
-                </h5>
-                <p class="homec-testimonial__author--position">Client</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {{ templates.review(review) }}
+        <br />
       {% endfor %}
 
       <!--bottom pagination section-->
