@@ -71,7 +71,7 @@ Tailor.init(
         return raw ? JSON.parse(raw) : null;
       },
       set(value: Socials) {
-        this.setDataValue("socials", JSON.stringify(value) as Socials);
+        this.setDataValue("socials", JSON.stringify(value) as unknown as Socials);
       },
     },
   },

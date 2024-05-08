@@ -1,11 +1,9 @@
-import { Router, request, response } from "express";
+import { Router } from "express";
 import * as TailorController from "../controllers/controller-tailor.js";
 import * as DesignController from "../controllers/controller-design.js";
 import * as ReviewController from "../controllers/controller-review.js";
 
 import { Tailor } from "../models/model-user-tailor.js";
-import { Review } from "../models/model-review.js";
-import { Design } from "../models/model-design.js";
 import { Client } from "../models/model-user-client.js";
 
 export const router = Router();
