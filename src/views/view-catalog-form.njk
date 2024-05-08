@@ -2,8 +2,8 @@
   class="property-sidebar"
   hx-designs-form
   hx-include="[hx-designs-search]"
-  hx-get="/catalog?offset=0&limit={{ pagination.limit }}"
-  hx-trigger="input delay:750ms"
+  hx-get="/catalog?offset=0&limit={{ limit }}"
+  hx-trigger="input"
   hx-push-url="true"
   hx-target="body"
 >
@@ -29,22 +29,41 @@
       </div>
       <br />
     {% endfor %}
+    <div class="property-sidebar__filters">
+      <h4 class="property-sidebar__title">
+        <label for="price">Sort By Price</label>
+      </h4>
 
-    <div class="property-sidebar__single mg-top-20">
-      <h4 class="property-sidebar__title">Price</h4>
-      <div class="" style="display: grid; grid-template-columns: 1fr .2fr 1fr;">
+      <div class="form-group tag-checkbox">
         <input
-          type="number"
-          name="range-price"
-          value="{{ query["range-price"][0] }}"
+          type="radio"
+          name="sort-price"
+          id="NONE"
+          value=""
+          {{ "checked" if query["sort-price"] === undefined }}
+          {{ "checked" if query["sort-price"] === "" }}
         />
-        <div style="display: grid; place-items: center;">to</div>
+        <label for="NONE">NONE</label>
+
         <input
-          type="number"
-          name="range-price"
-          value="{{ query["range-price"][1] }}"
+          type="radio"
+          name="sort-price"
+          id="ASC"
+          value="ASC"
+          {{ query["sort-price"] | ifIn("ASC", "checked") }}
         />
+        <label for="ASC">ASC</label>
+
+        <input
+          type="radio"
+          name="sort-price"
+          id="DESC"
+          value="DESC"
+          {{ query["sort-price"] | ifIn("DESC", "checked") }}
+        />
+        <label for="DESC">DESC</label>
       </div>
     </div>
+    <br />
   </div>
 </form>

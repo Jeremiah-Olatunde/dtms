@@ -3,7 +3,7 @@
     <form
       hx-designs-search
       hx-include="[hx-designs-form]"
-      hx-get="/catalog?offset=0&limit={{ pagination.limit }}"
+      hx-get="/catalog?offset=0&limit={{ limit }}"
       hx-push-url="true"
       hx-target="body"
       class="homec-form__form homec-form__form--bar"
@@ -22,12 +22,9 @@
     <div class="hoemc-showing-results">
       <p class="hoemc-showing-results__text">
         Showing
-        <span>
-          {{ pagination.offset + 1 }} -
-          {{ (pagination.offset + pagination.limit) | min(filteration.filtrate) }}
-        </span>
+        <span> {{ offset + 1 }} - {{ (offset + limit) | min(total) }} </span>
         of
-        <span>{{ filteration.filtrate }}</span>
+        <span>{{ total }}</span>
         results
       </p>
     </div>

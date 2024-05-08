@@ -7,14 +7,18 @@ router.get("/", async ({ query }, response) => {
   const result = await DesignController.findByQuery(query);
   const {
     results: designs,
-    metadata: { pagination, filteration },
+    metadata: {
+      pagination: { offset, limit },
+      filteration: { filtrate: total },
+    },
   } = result;
 
   response.render("view-catalog.njk", {
     query,
     designs,
-    pagination,
-    filteration,
+    offset,
+    limit,
+    total,
     formData: {
       gender: {
         action: "match",
@@ -48,11 +52,6 @@ router.get("/", async ({ query }, response) => {
           "trousers",
           "two-peice",
         ],
-      },
-      price: {
-        action: "sort",
-        display: "Sort by Price",
-        options: ["ASC", "DESC"],
       },
     },
   });
