@@ -3,17 +3,22 @@
     "strict": true,
     "module": "nodenext",
     "esModuleInterop": true,
+    "moduleResolution": "nodenext",
     "allowSyntheticDefaultImports": true,
+
+    "noEmit": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+
     "target": "esnext",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "lib": ["dom", "esnext"],
-    "noImplicitAny": true,
-    "moduleResolution": "nodenext",
+
     "sourceMap": true,
-    "outDir": "dist",
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/@types/*", "src/types/*"]
