@@ -26,7 +26,7 @@ const app = express()
   .use(
     morgan("dev", {
       skip: ({ query: q, method: m }, { statusCode: sc }) => {
-        return !Object.keys(q).length && sc <= 200 && sc < 400 && m === "GET";
+        return !Object.keys(q).length && 200 <= sc && sc < 400 && m === "GET";
       },
     }),
   )
