@@ -82,9 +82,13 @@ nunjucks
   .addFilter("min", Math.min)
   .addFilter("ceil", Math.ceil)
   .addFilter("floor", Math.floor)
-  .addFilter("limit", (x: string, max: number): string => {
-    return x.split("").slice(0, max).join("");
-  });
+  .addFilter(
+    "truncateText",
+    (text: string, end: string, limit: number): string => {
+      if (text.length <= limit) return text;
+      return text.slice(0, limit - end.length) + end;
+    },
+  );
 
 app.get("/", (_, response) => response.redirect("/home"));
 app.use("/home", home);
