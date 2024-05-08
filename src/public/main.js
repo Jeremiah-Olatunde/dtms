@@ -80,7 +80,7 @@
 })(window.jQuery);
 
 htmx.onLoad(() => {
-  $(".preloader").delay(100).fadeOut(500)
+  $(".preloader").delay(100).fadeOut(500);
 
   new window.Swiper(".homec-slider-property", {
     autoplay: {
@@ -264,4 +264,8 @@ accordionItems.forEach((item) => {
     item.classList.add("active");
     activeItem = item;
   });
+});
+
+document.addEventListener("htmx:beforeRequest", () => {
+  $(".preloader").fadeIn(0);
 });
