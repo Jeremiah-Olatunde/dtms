@@ -1,0 +1,66 @@
+{% extends "view-base.njk" %}
+
+{% block app %}
+  <!--this is overlay section at the beginning of the page-->
+  <section
+    class="breadcrumbs__content"
+    style="background-image: url(/img/page-title-overlay2.png);"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="breadcrumb-content">
+            <h2 class="breadcrumb__title m-0">Contact Us</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="homec-contact-form homec-bg-cover pd-top-80 pd-btm-80 mg-top-30"
+    style="background-image: url('/img/contact-support.jpg'); height: 700px;"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4" style="width: 550px; height: 800px;">
+          <div
+            class="homec-property-ag homec-bg-cover"
+            style="background-image: url('img/property-ag-bg.svg');"
+          >
+            <h3 class="homec-property-ag__title">
+              Have Questions? Contact Us Now
+            </h3>
+            <form action="#" class="homec-property-ag__form">
+              <div class="form-group">
+                <input type="text" name="first_name" placeholder="Your Name" />
+              </div>
+              <div class="form-group">
+                <input type="email" name="fullname" placeholder="Your Email" />
+              </div>
+              <div class="form-group">
+                <input type="text" name="your_phone" placeholder="Your Phone" />
+              </div>
+              <div class="form-group">
+                <input type="text" name="subject" placeholder="Subject" />
+              </div>
+              <div class="form-group">
+                <textarea
+                  name="Message"
+                  placeholder="Description"
+                  required="required"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="homec-btn homec-btn__second homec-property-ag__button"
+              >
+                <span>Send Message Now</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
