@@ -1,34 +1,11 @@
+{% import "templates.njk" as templates %}
+
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="homec-grid" role="tabpanel">
     <div class="row">
       {% for design in designs %}
         <div class="col-md-6 col-12 mg-top-30">
-          <div class="homec-property">
-            <div class="homec-property__head">
-              <img
-                data-bs-toggle="modal"
-                data-bs-target="#imageModal"
-                class="outfit-image"
-                src="{{ design.image }}"
-                alt="#"
-              />
-              <!--Removed tailor and favorite badges-->
-            </div>
-            <div class="homec-property__body">
-              <div class="homec-property__topbar">
-                <div class="homec-property__price">
-                  <span>Price: </span> NGN {{ design.price | formatPrice }}
-                </div>
-              </div>
-              <h3 class="homec-agent__title">{{ design.description }}</h3>
-              <a
-                href="/tailors/profile/{{ design.tailor }}"
-                class="homec-btn homec-btn__second small-btn"
-                style="font-size: 18px;"
-                ><span>View Tailor Profile</span></a
-              >
-            </div>
-          </div>
+          {{ templates.design(design) }}
         </div>
       {% endfor %}
     </div>
