@@ -17,6 +17,7 @@ import { router as home } from "./routes/router-home.js";
 import { router as catalog } from "./routes/router-catalog.js";
 import { router as tailors } from "./routes/router-tailors.js";
 import { router as contact } from "./routes/router-contact.js";
+import { router as auth } from "./routes/router-auth.js";
 
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -96,3 +97,4 @@ app.use("/home", home);
 app.use("/catalog", catalog);
 app.use("/tailors", tailors);
 app.use("/contact", contact);
+app.use("/auth", auth);
