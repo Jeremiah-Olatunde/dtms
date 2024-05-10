@@ -9,3 +9,13 @@ export function isArrayNumber(xs: any): xs is number[] {
 export function isArrayBoolean(xs: any): xs is boolean[] {
   return Array.isArray(xs) && xs.every((x) => typeof x === "boolean");
 }
+
+export function zip<T>(xs: T[]) {
+  return function <U>(ys: U[]) {
+    const zipped: [T, U][] = [];
+    for (let i = 0; i < Math.min(xs.length, ys.length); i++) {
+      zipped.push([xs[i], ys[i]]);
+    }
+    return zipped;
+  };
+}
