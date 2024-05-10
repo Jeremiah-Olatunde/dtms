@@ -1,6 +1,10 @@
+{% import "templates.njk" as templates %}
 {% extends "view-base.njk" %}
+
 {% block app %}
-  <!--this is overlay section at the beginning of the page-->
+  {% include "modal.njk" %}
+  {% include  "preloader.njk" %}
+  {% include  "navigation.njk" %}
   <section
     class="breadcrumbs__content"
     style="background-image: url(img/page-title-overlay2.png);"
@@ -34,4 +38,6 @@
       </div>
     </div>
   </section>
+  {% include "footer.njk" %}
+  {% include "scrolltop.njk" %}
 {% endblock %}

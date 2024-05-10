@@ -1,5 +1,10 @@
+{% import "templates.njk" as templates %}
 {% extends "view-base.njk" %}
+
 {% block app %}
+  {% include "modal.njk" %}
+  {% include  "preloader.njk" %}
+  {% include  "navigation.njk" %}
   <!--this is overlay section at the beginning of the page-->
   <section
     class="breadcrumbs__content"
@@ -151,4 +156,6 @@
       </div>
     </div>
   </section>
+  {% include "footer.njk" %}
+  {% include "scrolltop.njk" %}
 {% endblock %}

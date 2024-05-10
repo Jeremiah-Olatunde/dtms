@@ -2,6 +2,10 @@
 {% extends "view-base.njk" %}
 
 {% block app %}
+  {% include "modal.njk" %}
+  {% include  "preloader.njk" %}
+  {% include  "navigation.njk" %}
+
   <section id="hero" class="homec-hero homec-hero--v3 p-relative">
     <div class="homec-hero-group">
       <!-- background (purple boxed)of pages -->
@@ -134,7 +138,7 @@
     <div class="homec-shape">
       <div
         class="homec-bg homec-bg__opacity"
-        style="background-image: url(img/bg-shape-four.svg);"
+        style="background-image: url(/img/bg-shape-four.svg);"
       ></div>
       <!--background concept for designs section on landing page-->
     </div>
@@ -327,7 +331,7 @@
   >
     <div
       class="homec-bg homec-bg__opacity"
-      style="background-image: url(img/features-list-bg.svg);"
+      style="background-image: url(/img/features-list-bg.svg);"
     ></div>
     <div class="container">
       <div class="row">
@@ -542,4 +546,7 @@
       </div>
     </div>
   </section>
+
+  {% include "footer.njk" %}
+  {% include "scrolltop.njk" %}
 {% endblock %}
