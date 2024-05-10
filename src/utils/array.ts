@@ -19,3 +19,15 @@ export function zip<T>(xs: T[]) {
     return zipped;
   };
 }
+
+export function subsetOf(xs: any[]) {
+  return function (ys: any[]) {
+    return xs.every((x) => ys.includes(x));
+  };
+}
+
+export function supersetOf(xs: any[]) {
+  return function (ys: any[]) {
+    return ys.every((x) => xs.includes(x));
+  };
+}
