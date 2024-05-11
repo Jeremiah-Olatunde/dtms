@@ -44,7 +44,7 @@ class Client extends Model<
 
   declare image: null | string;
   declare gender: null | Gender;
-  declare location: null | string;
+  declare address: null | string;
   declare measurements: null | Measurements;
 }
 
@@ -78,7 +78,7 @@ Client.init(
 
     gender: DataTypes.ENUM("male", "female"),
     image: DataTypes.STRING,
-    location: DataTypes.STRING,
+    address: DataTypes.STRING,
 
     measurements: {
       type: DataTypes.STRING,

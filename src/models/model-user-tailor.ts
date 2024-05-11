@@ -6,8 +6,18 @@ import {
 } from "sequelize";
 import { sequelize } from "./db.js";
 
-export const SOCIALS = ["facebook", "instagram", "linkedin", "twitter"];
-type Socials = Partial<Record<(typeof SOCIALS)[number], string>>;
+export const SOCIALS = [
+  "facebook",
+  "instagram",
+  "linkedin",
+  "twitter",
+] as const;
+
+export type Socials = Partial<Record<(typeof SOCIALS)[number], string>>;
+
+export function isSocials(x: any): x is Socials {
+  return SOCIALS.includes(x);
+}
 
 class Tailor extends Model<
   InferAttributes<Tailor>,
@@ -26,7 +36,7 @@ class Tailor extends Model<
   declare account: null | string;
 
   declare socials: null | Socials;
-  declare location: null | string;
+  declare address: null | string;
 }
 
 Tailor.init(
@@ -62,7 +72,7 @@ Tailor.init(
 
     bank: DataTypes.CHAR(255),
     account: DataTypes.CHAR(8),
-    location: DataTypes.STRING,
+    address: DataTypes.STRING,
 
     socials: {
       type: DataTypes.TEXT,
