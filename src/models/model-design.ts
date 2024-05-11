@@ -6,29 +6,31 @@ import {
 } from "sequelize";
 import { sequelize } from "./db.js";
 
-export const OCCASSIONS = ["casual", "business", "formal"] as const;
-
+export const GROUPS = ["adults", "kids"] as const;
+export const GENDERS = ["male", "female"] as const;
+export const STYLES = ["english", "traditional"] as const;
+export const OCCASIONS = ["casual", "business", "formal", "uniform"] as const;
 export const TYPES = [
-  "blouse",
-  "coat",
   "dress",
   "jacket",
-  "jumpsuit",
   "shirt",
   "shorts",
   "skirt",
   "suit",
-  "swimwear",
   "trousers",
-  "two-peice",
 ] as const;
 
 export type Type = (typeof TYPES)[number];
-export type Occasion = (typeof OCCASSIONS)[number];
+export type Style = (typeof STYLES)[number];
+export type Group = (typeof GROUPS)[number];
+export type Gender = (typeof GENDERS)[number];
+export type Occasion = (typeof OCCASIONS)[number];
 
-export type Group = "adults" | "kids";
-export type Gender = "male" | "female";
-export type Style = "english" | "traditional";
+export const isType = (x: any): x is Type => TYPES.includes(x);
+export const isStyle = (x: any): x is Style => STYLES.includes(x);
+export const isGroup = (x: any): x is Group => GROUPS.includes(x);
+export const isGender = (x: any): x is Gender => GENDERS.includes(x);
+export const isOccasion = (x: any): x is Occasion => OCCASIONS.includes(x);
 
 class Design extends Model<
   InferAttributes<Design>,
@@ -46,7 +48,7 @@ class Design extends Model<
   declare style: Style;
   declare group: Group;
   declare gender: Gender;
-  declare occassion: Occasion;
+  declare occasion: Occasion;
 }
 
 Design.init(
@@ -79,11 +81,11 @@ Design.init(
     },
 
     type: DataTypes.ENUM(...TYPES),
-    occassion: DataTypes.ENUM(...OCCASSIONS),
+    occasion: DataTypes.ENUM(...OCCASIONS),
 
-    group: DataTypes.ENUM("adults", "kids"),
-    gender: DataTypes.ENUM("male", "female"),
-    style: DataTypes.ENUM("english", "traditional"),
+    group: DataTypes.ENUM(...GROUPS),
+    gender: DataTypes.ENUM(...GENDERS),
+    style: DataTypes.ENUM(...STYLES),
   },
   { sequelize, modelName: "Design" },
 );
