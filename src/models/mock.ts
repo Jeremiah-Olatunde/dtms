@@ -8,15 +8,30 @@ import { Login } from "./model-login.js";
 import { Review } from "./model-review.js";
 import { Tailor, SOCIALS } from "./model-user-tailor.js";
 import { Client, MEASUREMENTS } from "./model-user-client.js";
-import { Design, TYPES, OCCASSIONS } from "./model-design.js";
+import {
+  Design,
+  Type,
+  TYPES,
+  Occasion,
+  OCCASIONS,
+  Gender,
+  GENDERS,
+  Style,
+  STYLES,
+  Group,
+  GROUPS,
+} from "./model-design.js";
 
-import * as random from "../utils/random.js";
+import { range, choice, pick } from "../utils/random.js";
+import { subsetOf } from "../utils/array.js";
 
 function toImageUrl(directory: string, filename: string): string {
   const fullPath = join(directory, filename);
   const publicPath = "D:\\coding\\projects\\dtms\\src\\public";
   return "/" + relative(publicPath, fullPath).replaceAll("\\", "/");
 }
+
+const phonePrefixes = ["070", "081", "080", "090"];
 
 export async function mockClients(
   size: number,
@@ -26,22 +41,26 @@ export async function mockClients(
   if (reset) await Client.sync({ force: true });
 
   const clients: Client[] = [];
+  const images: string[] = readdirSync(imageDir);
 
   for (let i = 0; i < size; i++) {
     const uid = nanoid();
-    const gender = random.choice(["male", "female"] as const);
+    const gender = choice(["male", "female"] as const);
     const lastName = faker.person.lastName(gender);
     const firstName = faker.person.firstName(gender);
 
-    const phone = faker.string.numeric(11);
+    const phone = choice(phonePrefixes) + faker.string.numeric(8);
     const email = faker.internet.email({ firstName, lastName });
-    const image = toImageUrl(
-      `${imageDir}\\${gender}`,
-      random.choice(readdirSync(`${imageDir}\\${gender}`)),
-    );
+    const address = faker.location.streetAddress({ useFullAddress: true });
+    const filteredImages = images
+      .map((image) => image.split(/[-.]/))
+      .filter(subsetOf([gender, "client"]))
+      .map((xs) => xs.slice(0, -1).join("-") + "." + xs.at(-1));
+
+    const image = toImageUrl(imageDir, choice(filteredImages));
 
     const measurements = Object.fromEntries(
-      MEASUREMENTS.map((key) => [key, random.range(8, 40)]),
+      MEASUREMENTS.map((key) => [key, range(8, 40)]),
     );
 
     clients.push(
@@ -51,6 +70,7 @@ export async function mockClients(
         phone,
         image,
         gender,
+        address,
         lastName,
         firstName,
         measurements,
@@ -76,13 +96,20 @@ export async function mockTailors(
     const lastName = faker.person.lastName();
     const firstName = faker.person.firstName();
 
-    const image = toImageUrl(imageDir, random.choice(images));
-    const phone = faker.string.numeric(11);
-    const email = faker.internet.email({ firstName, lastName });
     const about = faker.lorem.paragraph(6);
-    const bank = random.choice(["zenith", "first bank", "fcmb", "access"]);
+    const email = faker.internet.email({ firstName, lastName });
+    const phone = choice(phonePrefixes) + faker.string.numeric(8);
+
     const account = faker.finance.accountNumber();
-    const location = faker.location.streetAddress();
+    const bank = choice(["zenith", "first bank", "fcmb", "access"]);
+    const address = faker.location.streetAddress({ useFullAddress: true });
+
+    const filteredImages = images
+      .map((image) => image.split(/[-.]/))
+      .filter(subsetOf(["tailor"]))
+      .map((xs) => xs.slice(0, -1).join("-") + "." + xs.at(-1));
+
+    const image = toImageUrl(imageDir, choice(filteredImages));
 
     const socials = Object.fromEntries(
       SOCIALS.map((key) => [
@@ -97,13 +124,14 @@ export async function mockTailors(
         email,
         phone,
         image,
+        about,
         lastName,
         firstName,
-        socials,
-        about,
+
         bank,
         account,
-        location,
+        address,
+        socials,
       }),
     );
   }
@@ -139,23 +167,24 @@ export async function mockDesigns(
   return Promise.all(
     tailors.flatMap(({ uid: tailor }): Promise<Design>[] => {
       const designs: Promise<Design>[] = [];
+      const images: string[] = readdirSync(imageDir);
 
-      for (let i = 0; i < random.range(50, 100); i++) {
+      for (let i = 0; i < range(50, 100); i++) {
         const uid = nanoid();
-        const ranking = random.range(5, 10);
-        const price = random.range(10_000, 1_000_000);
+        const ranking = range(5, 10);
+        const price = range(10_000, 1_000_000);
         const description = faker.lorem.sentence(3);
 
-        const type = random.choice(TYPES);
-        const occassion = random.choice(OCCASSIONS);
-        const group = random.choice(["adults", "kids"] as const);
-        const gender = random.choice(["male", "female"] as const);
-        const style = random.choice(["english", "traditional"] as const);
+        const image = choice(images);
+        const labels = image.split("-").slice(0, -1) as any[];
 
-        const image = toImageUrl(
-          `${imageDir}\\${gender}`,
-          random.choice(readdirSync(`${imageDir}\\${gender}`)),
-        );
+        const type = labels.find((l) => TYPES.includes(l)) ?? choice(TYPES);
+        const group = labels.find((l) => GROUPS.includes(l)) ?? choice(GROUPS);
+        const style = labels.find((l) => STYLES.includes(l)) ?? choice(STYLES);
+        const gender =
+          labels.find((l) => GENDERS.includes(l)) ?? choice(GENDERS);
+        const occasion =
+          labels.find((l) => OCCASIONS.includes(l)) ?? choice(OCCASIONS);
 
         designs.push(
           Design.create({
@@ -164,12 +193,12 @@ export async function mockDesigns(
             ranking,
             price,
             description,
-            type,
-            occassion,
-            group,
-            gender,
-            style,
-            image,
+            image: toImageUrl(imageDir, image),
+            type: type as Type,
+            occasion: occasion as Occasion,
+            group: group as Group,
+            gender: gender as Gender,
+            style: style as Style,
           }),
         );
       }
@@ -188,16 +217,24 @@ export async function mockReview(
 
   return Promise.all(
     tailors.flatMap(({ uid: tailor }): Promise<Review>[] => {
-      const cs = random.pick(random.range(0, clients.length), clients);
+      const cs = pick(range(0, clients.length), clients);
       return cs.map(({ uid: client }) => {
         return Review.create({
           uid: nanoid(),
           client,
           tailor,
           text: faker.lorem.paragraph(6),
-          rating: random.range(3, 10),
+          rating: range(3, 10),
         });
       });
     }),
   );
+}
+
+export async function reset() {
+  await Client.sync({ force: true });
+  await Tailor.sync({ force: true });
+  await Login.sync({ force: true });
+  await Design.sync({ force: true });
+  await Review.sync({ force: true });
 }
