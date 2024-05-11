@@ -22,7 +22,7 @@
                     class="ecom-wc__form-input"
                     type="text"
                     id="{{ measurement }}"
-                    name="{{ measurement }}"
+                    name="measurement[{{ measurement }}]"
                     placeholder="0 in"
                   />
                 </div>
@@ -46,7 +46,7 @@
                     class="ecom-wc__form-input"
                     type="text"
                     id="{{ social }}"
-                    name="{{ social }}"
+                    name="socials[{{ social }}]"
                     placeholder="{{ social }} link"
                   />
                 </div>
@@ -89,7 +89,8 @@
               class="homec-btn homec-btn__second homec-property-ag__button"
               hx-boost="true"
               hx-post="/auth/signup"
-              hx-include="[hx-signup-form-1]"
+              hx-include="[hx-signup-form-1], [hx-signup-form-2]"
+              hx-target="[hx-validation-modal]"
               ><span>Finish</span></a
             >
           </div>

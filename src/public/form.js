@@ -35,3 +35,13 @@ function initializeSignUp() {
 
 initializeSignUp();
 //=============================================================================
+
+//=== VALIDATION ERROR MODAL =======================================================
+htmx.onLoad(() => {
+  $("#signup-error #close-btn").click((event) => {
+    $("#form-validation-modal").fadeOut(300, (event) => {
+      $("#form-validation-modal").html("");
+    });
+  });
+});
+//=============================================================================

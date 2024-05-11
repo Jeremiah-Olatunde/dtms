@@ -1,5 +1,7 @@
 {% extends "view-base.njk" %}
+
 {% block app %}
+  {% include "preloader.njk" %}
   <section
     class="ecom-wc ecom-wc__full ecom-bg-cover"
     {# style="background-image: url('/img/credential-bg.html');" #}
@@ -49,8 +51,32 @@
           {% include "view-auth-signup-one.njk" %}
           {% include "view-auth-signup-two.njk" %}
           {% include "view-auth-signup-three.njk" %}
+          <div hx-validation-modal></div>
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    .form-validation-modal {
+      width: 50vw;
+      height: 100%;
+
+      top: 0;
+      left: 50%;
+      position: fixed;
+      z-index: 1000;
+
+      background: rgba(0, 0, 0, 0.4);
+
+      display: grid;
+      place-items: center;
+    }
+
+    .form-validation-content {
+      width: 60%;
+      padding: 30px;
+      background: white;
+    }
+  </style>
 {% endblock %}
