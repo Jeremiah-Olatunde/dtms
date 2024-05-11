@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { TYPES, OCCASIONS, GENDERS, GROUPS } from "../models/model-design.js";
 import * as DesignController from "../controllers/controller-design.js";
 
 export const router = Router();
@@ -23,35 +24,22 @@ router.get("/", async ({ query }, response) => {
       gender: {
         action: "match",
         display: "Gender",
-        options: ["male", "female"],
+        options: GENDERS,
       },
       group: {
         action: "match",
         display: "Age Group",
-        options: ["adults", "kids"],
+        options: GROUPS,
       },
-      occassion: {
+      occasion: {
         action: "match",
         display: "Occasion",
-        options: ["casual", "business", "formal"],
+        options: OCCASIONS,
       },
       type: {
         action: "match",
         display: "Dress Type",
-        options: [
-          "blouse",
-          "coat",
-          "dress",
-          "jacket",
-          "jumpsuit",
-          "shirt",
-          "shorts",
-          "skirt",
-          "suit",
-          "swimwear",
-          "trousers",
-          "two-peice",
-        ],
+        options: TYPES,
       },
     },
   });
