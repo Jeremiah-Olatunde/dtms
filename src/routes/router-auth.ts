@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { SOCIALS, Socials } from "../models/model-user-tailor.js";
-import { MEASUREMENTS, Measurements } from "../models/model-user-client.js";
+import { SOCIALS } from "../models/model-user-tailor.js";
+import { MEASUREMENTS } from "../models/model-user-client.js";
 
 import * as L from "../controllers/controller-login.js";
 import * as T from "../controllers/controller-tailor.js";
@@ -13,7 +13,7 @@ router.get("/login", (_, response) => {
   response.render("view-auth-login.njk");
 });
 
-router.post('/login', async (request, response) => {
+router.post("/login", async (request, response) => {
   console.log("logging in");
 
   try {
@@ -25,10 +25,11 @@ router.post('/login', async (request, response) => {
     request.session.user = { uid, usertype };
     response.render("view-auth-validation-success.njk");
   } catch (error) {
-    if (!(error instanceof Error))
-      throw new Error(`unknown error${error}`);
+    if (!(error instanceof Error)) throw new Error(`unknown error${error}`);
 
-    response.render("view-auth-validation-error.njk", { reason: error.message });
+    response.render("view-auth-validation-error.njk", {
+      reason: error.message,
+    });
   }
 });
 
@@ -57,40 +58,39 @@ router.post("/signup", async (request, response) => {
       usertype: form.usertype,
     });
 
-    if(form.usertype === "tailor") {
+    if (form.usertype === "tailor") {
       await T.create({
-        uid: uid as string, 
-        email: form.email as string, 
-        phone: form.phone as string, 
+        uid: uid as string,
+        email: form.email as string,
+        phone: form.phone as string,
         address: form.address as string,
-        lastName: form.lastName as string, 
-        firstName: form.firstName as string, 
+        lastName: form.lastName as string,
+        firstName: form.firstName as string,
         socials: {
-          facebook: form.socials.facebook as string ?? null,
-          instagram: form.socials.instagram as string ?? null,
-          linkedin: form.socials.linkedin as string ?? null,
-          twitter: form.socials.twitter as string ?? null,
+          facebook: (form.socials.facebook as string) ?? null,
+          instagram: (form.socials.instagram as string) ?? null,
+          linkedin: (form.socials.linkedin as string) ?? null,
+          twitter: (form.socials.twitter as string) ?? null,
         },
-      })
+      });
     } else {
       await C.create({
-        uid: uid as string, 
-        email: form.email as string, 
-        phone: form.phone as string, 
+        uid: uid as string,
+        email: form.email as string,
+        phone: form.phone as string,
         gender: form.gender as "male" | "female",
         address: form.address as string,
-        lastName: form.lastName as string, 
-        firstName: form.firstName as string, 
+        lastName: form.lastName as string,
+        firstName: form.firstName as string,
         measurements: Object.fromEntries(
           Array.from(Object.entries(form.measurements)).map(([key, value]) => {
-            if(!(value as string).match(/^-?\d+(\.\d+)?$/))
+            if (!(value as string).match(/^-?\d+(\.\d+)?$/))
               throw new Error(`Invalid measurment ${key} specified`);
-            return [key, value === "" ? null : value]
-          })
+            return [key, value === "" ? null : value];
+          }),
         ),
-      })
+      });
     }
-
 
     request.session.user = { uid, usertype: request.body.usertype };
 
@@ -106,24 +106,24 @@ router.post("/signup", async (request, response) => {
   }
 });
 
-function validatePhone(phone: string){
-  if(!phone.match(/^\+?[0-9()-]{7,20}$/))
-    throw new Error("Invalid phone number fortmat")
+function validatePhone(phone: string) {
+  if (!phone.match(/^\+?[0-9()-]{7,20}$/))
+    throw new Error("Invalid phone number fortmat");
 }
 
-function validateName(name: string){
-  if(name === "") throw new Error("Name not specified");
+function validateName(name: string) {
+  if (name === "") throw new Error("Name not specified");
 }
 
-function validateEmail(email: string){
-  if(email === "") throw new Error("Email not specified");
-  if(!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/))
+function validateEmail(email: string) {
+  if (email === "") throw new Error("Email not specified");
+  if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/))
     throw new Error("Invalid email format");
 }
 
-function validatePassword(password: string, confirm: string){
+function validatePassword(password: string, confirm: string) {
   if (password === "") throw new Error("Password not specified");
   if (confirm === "") throw new Error("Confirm Password not specified");
   if (password !== confirm) throw new Error("Passwords do not match");
-  if(password.length < 8) throw new Error("Password to short");
+  if (password.length < 8) throw new Error("Password to short");
 }

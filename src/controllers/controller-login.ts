@@ -51,13 +51,13 @@ export async function login(email: string, password: string): Promise<Login> {
     throw new Error(`email(${email}) does not exist`);
   }
 
-  if(password === cred.hashed){
+  if (password === cred.hashed) {
     return cred;
   }
 
   if (!(await bcrypt.compare(password, cred.hashed))) {
     throw new Error("incorrect password");
-  } 
+  }
 
   return cred;
 }
