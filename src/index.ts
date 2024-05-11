@@ -90,7 +90,13 @@ nunjucks
       if (text.length <= limit) return text;
       return text.slice(0, limit - end.length) + end;
     },
-  );
+  )
+  .addFilter("dehyphenateAndCapitalize", (xs: string): string => {
+    return xs
+      .split("-")
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(" ");
+  });
 
 app.get("/", (_, response) => response.redirect("/home"));
 app.use("/home", home);
