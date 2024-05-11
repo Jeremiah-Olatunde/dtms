@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
 
 import { Login } from "./model-login.js";
 import { Review } from "./model-review.js";
-import { Tailor, SOCIALS } from "./model-user-tailor.js";
+import { Tailor, SOCIALS, Socials } from "./model-user-tailor.js";
 import { Client, MEASUREMENTS } from "./model-user-client.js";
 import {
   Design,
@@ -116,7 +116,7 @@ export async function mockTailors(
         key,
         `https://${key}/${faker.internet.userName({ firstName, lastName })}`,
       ]),
-    );
+    ) as Socials;
 
     tailors.push(
       await Tailor.create({
