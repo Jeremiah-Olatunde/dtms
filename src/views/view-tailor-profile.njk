@@ -1,5 +1,8 @@
 {% extends "view-base.njk" %}
 {% block app %}
+  {% include "modal.njk" %}
+  {% include  "preloader.njk" %}
+  {% include  "navigation.njk" %}
   <!--this is overlay section at the beginning of the page-->
   <section
     class="breadcrumbs__content"
@@ -130,7 +133,7 @@
                   </li>
                   <li>
                     <img src="/img/agent-location.svg" alt="#" />
-                    {{ tailor.location }}
+                    {{ tailor.address }}
                   </li>
                 </ul>
                 <ul
@@ -332,4 +335,5 @@
     hx-swap="innerHTML"
     hx-tailor-reviews
   ></div>
+  {% include  "footer.njk" %}
 {% endblock %}
