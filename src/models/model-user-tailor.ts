@@ -13,7 +13,7 @@ export const SOCIALS = [
   "twitter",
 ] as const;
 
-export type Socials = Partial<Record<(typeof SOCIALS)[number], string>>;
+export type Socials = Record<(typeof SOCIALS)[number], string | null>;
 
 export function isSocials(x: any): x is Socials {
   return SOCIALS.includes(x);
@@ -29,14 +29,14 @@ class Tailor extends Model<
   declare lastName: string;
   declare firstName: string;
 
-  declare about: null | string;
-  declare image: null | string;
+  declare about?: null | string;
+  declare image?: null | string;
 
-  declare bank: null | string;
-  declare account: null | string;
+  declare bank?: null | string;
+  declare account?: null | string;
 
-  declare socials: null | Socials;
-  declare address: null | string;
+  declare socials?: null | Socials;
+  declare address?: null | string;
 }
 
 Tailor.init(

@@ -1,8 +1,18 @@
 import fuzzy from "fuzzy";
 import { ParsedQs } from "qs";
+import { InferCreationAttributes } from "sequelize";
+
 
 import { Tailor } from "../models/model-user-tailor.js";
 import { queryToFetchOptions } from "./qtfo.js";
+
+
+export async function create(
+  create: InferCreationAttributes<Tailor>,
+): Promise<void> {
+  await Tailor.create(create);
+}
+
 
 export async function findByQuery(query: ParsedQs): Promise<{
   results: Tailor[];
