@@ -97,6 +97,15 @@ nunjucks
       .split("-")
       .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(" ");
+  })
+  .addFilter("toEnglish", (x: number, s: string): string => {
+    return `${x} ${s}${1 === x ? "" : "s"}`;
+  })
+  .addFilter("daysSince", function (date: Date): number {
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - date.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference;
   });
 
 app.get("/", (_, response) => response.redirect("/home"));
