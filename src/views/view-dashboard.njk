@@ -1,0 +1,22 @@
+{% extends "view-base.njk" %}
+{% block app %}
+  {% include "preloader.njk" %}
+  <section class="homec-dashboard">
+    {% block sidebar %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+  </section>
+
+  <style>
+    .homec-dashboard {
+      padding: 20px 10px 10px 10px;
+      height: 100vh;
+
+      display: grid;
+      grid-column-gap: 15px;
+      grid-template-columns: 0.25fr 0.75fr;
+    }
+  </style>
+{% endblock %}
