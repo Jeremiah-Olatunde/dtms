@@ -1,0 +1,79 @@
+{% import "templates.njk" as macros %}
+{% extends "view-dashboard.njk" %}
+
+{% block sidebar %}
+  {{ macros.dashboard_sidebar("client", "reviews") }}
+{% endblock %}
+
+{% block content %}
+  {% call macros.dashboard_content("My Reviews", client.firstName + " " + client.lastName) %}
+    <div class="homec-pdetails-tab--review" hx-dashboard-client-reviews>
+      {% for review in reviews %}
+        <div
+          class="homec-testimonial homec-testimonial--review homec-border mg-top-30"
+        >
+          <div class="homec-rating--main mg-btm-15">
+            <ul class="homec-rating list-none mg-btm-15">
+              {% for i in range(0, (review.rating / 2) | round) %}
+                <li><i class="fa-solid fa-star"></i></li>
+              {% endfor %}
+              <span class="homec-primary-color" style="font-weight: 600;"
+                >{{ review.rating }}/10</span
+              >
+            </ul>
+            <span class="homec-primary-color">{{ review.createdAt }} </span>
+          </div>
+          <p
+            class="homec-testimonial__text"
+            style="text-align: justify; font-size: 17px; line-height: 2;"
+          >
+            {{ review.text }}
+          </p>
+          <div class="homec-testimonial__bottom">
+            <div class="homec-testimonial__author">
+              <img
+                loading="lazy"
+                style="object-fit: cover;"
+                src="{{ review.tailor.image }}"
+                alt="
+                  photo of 
+                  {{ review.tailor.firstName }} 
+                  {{ review.tailor.lastName }}"
+              />
+              <div class="homec-testimonial__author--info">
+                <h5 class="homec-testimonial__author--title">
+                  {{ review.tailor.firstName }}
+                  {{ review.tailor.lastName }}
+                </h5>
+                <p class="homec-testimonial__author--position">Tailor</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mg-top-40">
+      <div class="homec-pagination">
+        <ul class="homec-pagination__list list-none">
+          {% set page = pagination.offset / pagination.limit %}
+          {% set total = (filteration.filtrate / pagination.limit) | ceil %}
+          {% for i in range(0, total) %}
+            <li class="{{ "active" if i === page }}">
+              <a
+                hx-get="/dashboard/client/reviews/{{ i }}"
+                hx-boost="true"
+                hx-target="body"
+                hx-swap="outerHTML"
+                hx-push-url="true"
+                style="cursor: pointer;"
+              >
+                {{ (i + 1).toString().padStart(2, "0") }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endcall %}
+{% endblock %}
