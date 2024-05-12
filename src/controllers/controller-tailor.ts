@@ -11,6 +11,13 @@ export async function create(
   await Tailor.create(create);
 }
 
+export async function read(
+  key: "uid" | "email",
+  value: string,
+): Promise<Tailor | null> {
+  return Tailor.findOne({ where: { [key]: value } });
+}
+
 export async function findByQuery(query: ParsedQs): Promise<{
   results: Tailor[];
   metadata: {
