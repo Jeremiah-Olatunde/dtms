@@ -13,7 +13,7 @@
           class="homec-testimonial homec-testimonial--review homec-border mg-top-30"
         >
           <div class="homec-rating--main mg-btm-15">
-            <ul class="homec-rating list-none mg-btm-15">
+            <ul class="homec-rating list-none">
               {% for i in range(0, (review.rating / 2) | round) %}
                 <li><i class="fa-solid fa-star"></i></li>
               {% endfor %}
@@ -21,11 +21,13 @@
                 >{{ review.rating }}/10</span
               >
             </ul>
-            <span class="homec-primary-color">{{ review.createdAt }} </span>
+            <span class="homec-primary-color"
+              >{{ review.createdAt | daysSince | toEnglish("day") }} ago
+            </span>
           </div>
           <p
             class="homec-testimonial__text"
-            style="text-align: justify; font-size: 17px; line-height: 2;"
+            style="text-align: justify; font-size: 15px; line-height: 2;"
           >
             {{ review.text }}
           </p>
@@ -41,7 +43,7 @@
                   {{ review.tailor.lastName }}"
               />
               <div class="homec-testimonial__author--info">
-                <h5 class="homec-testimonial__author--title">
+                <h5 class="homec-testimonial__author--title" style="">
                   {{ review.tailor.firstName }}
                   {{ review.tailor.lastName }}
                 </h5>
