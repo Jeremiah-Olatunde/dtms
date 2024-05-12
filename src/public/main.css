@@ -2209,7 +2209,7 @@ input[type="checkbox"]:checked::before {
 }
 .homec-testimonial__author--title {
   margin: 0;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
 }
 .homec-testimonial__quote svg {
@@ -8023,6 +8023,66 @@ div.ck-editor.ck-rounded-corners {
   color: #fff;
 }
 
+/*===MEASUREMENTS================================================*/
+
+.content-wrapper {
+  margin-top: 20px;
+  display: grid;
+  grid-row-gap: 15px;
+  grid-column-gap: 20px;
+  grid-template-columns: 0.35fr 0.65fr;
+  grid-template-rows: 0.6fr 0.4fr;
+  flex: 1;
+}
+
+.image-container img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid rgba(113, 102, 240, 0.1);
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons button {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 600;
+  background: #f2c94c;
+  padding: 15px;
+  font-size: 15px;
+}
+
+.buttons .danger {
+  background: lightsalmon;
+}
+
+.measurements-container {
+  background-color: rgba(113, 102, 240, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 2;
+}
+
+.measurement-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+}
+
+.part {
+  font-weight: 500;
+}
+/*===============================================================
 /*======================================
   End Global
 ========================================*/
