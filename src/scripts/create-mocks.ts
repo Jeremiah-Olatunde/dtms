@@ -6,7 +6,10 @@ import {
   mockTailors,
   mockDesigns,
   mockLogins,
-  mockReview,
+  mockReviews,
+  mockQuotationRequests,
+  mockQuotationResponses,
+  mockOrders,
 } from "../models/mock.js";
 
 const images = resolve(
@@ -17,6 +20,19 @@ const images = resolve(
 const clients = await mockClients(100, images, true);
 const tailors = await mockTailors(25, images, true);
 
-await mockDesigns(tailors, images, true);
-await mockReview(tailors, clients, true);
+await mockDesigns(500, tailors, images, true);
+await mockReviews(500, tailors, clients, true);
 await mockLogins([...clients, ...tailors], true);
+
+const quotationRequests = await mockQuotationRequests(
+  500,
+  clients,
+  tailors,
+  images,
+  true,
+);
+const quotationResponses = await mockQuotationResponses(
+  quotationRequests,
+  true,
+);
+await mockOrders(quotationResponses, true);
