@@ -1,3 +1,5 @@
+@import url("/fonts/Lato/Lato.css");
+@import url("/fonts/Montserrat/Montserrat.css");
 /*======================================
 	Theme Default
 ========================================*/
@@ -30,7 +32,7 @@
 }
 
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Montserrat", "Lato", sans-serif;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -196,7 +198,7 @@ input,
 select,
 optgroup,
 textarea {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Montserrat", "Lato", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -369,7 +371,7 @@ h5,
 h5 a,
 h6,
 h6 a {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Montserrat", "Lato", sans-serif;
   font-weight: 700;
   line-height: 140%;
 }
@@ -433,7 +435,7 @@ address {
 }
 pre {
   background: #eee;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Montserrat", "Lato", sans-serif;
   font-size: 15px;
   font-size: 0.9375rem;
   line-height: 1.6;
@@ -446,7 +448,7 @@ code,
 kbd,
 tt,
 var {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", "Montserrat", "Lato", sans-serif;
   font-size: 15px;
   font-size: 0.9375rem;
 }
