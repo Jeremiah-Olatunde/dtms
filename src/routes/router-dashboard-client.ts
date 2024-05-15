@@ -119,10 +119,7 @@ router.get("/quotations/requests/:status/:page", async (request, response) => {
   });
 });
 
-router.get(
-  "/quotations/responses/:status/:page",
-  async (request, response) => {},
-);
+router.get("/quotations/responses/:status/:page", async () => {});
 
 router.get("/quotation-requests/view/:uid", async (request, response) => {
   const { uid } = request.session.user!;
