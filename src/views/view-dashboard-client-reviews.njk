@@ -10,7 +10,12 @@
     <div class="homec-pdetails-tab--review" hx-dashboard-client-reviews>
       {% for review in reviews %}
         <div
-          class="homec-testimonial homec-testimonial--review homec-border mg-top-30"
+          class="homec-testimonial homec-testimonial--review homec-border mg-top-15"
+          style="
+            border: 3px solid rgba(113, 102, 240, 0.6); 
+            border-radius: 0;
+            overflow: hidden;
+          "
         >
           <div class="homec-rating--main mg-btm-15">
             <ul class="homec-rating list-none">
@@ -51,31 +56,43 @@
               </div>
             </div>
           </div>
+
+          <img
+            class="review-shape"
+            src="/img/anim-shape-{{ [1, 2, 3] | random }}.svg"
+            style="
+              right: 0;
+              bottom: 50%;
+              opacity: .2;
+              height: 200%;
+              position: absolute;
+              transform: translate(40%, 50%);
+            "
+            alt=""
+          />
         </div>
       {% endfor %}
     </div>
 
-    <div class="row mg-top-40">
-      <div class="homec-pagination">
-        <ul class="homec-pagination__list list-none">
-          {% set page = pagination.offset / pagination.limit %}
-          {% set total = (filteration.filtrate / pagination.limit) | ceil %}
-          {% for i in range(0, total) %}
-            <li class="{{ "active" if i === page }}">
-              <a
-                hx-get="/dashboard/client/reviews/{{ i }}"
-                hx-boost="true"
-                hx-target="body"
-                hx-swap="outerHTML"
-                hx-push-url="true"
-                style="cursor: pointer;"
-              >
-                {{ (i + 1).toString().padStart(2, "0") }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+    <div class="homec-pagination" style="padding: 15px;">
+      <ul class="homec-pagination__list list-none">
+        {% set page = pagination.offset / pagination.limit %}
+        {% set total = (filteration.filtrate / pagination.limit) | ceil %}
+        {% for i in range(0, total) %}
+          <li class="{{ "active" if i === page }}">
+            <a
+              hx-get="/dashboard/client/reviews/{{ i }}"
+              hx-boost="true"
+              hx-target="body"
+              hx-swap="outerHTML"
+              hx-push-url="true"
+              style="cursor: pointer;"
+            >
+              {{ (i + 1).toString().padStart(2, "0") }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   {% endcall %}
 {% endblock %}
