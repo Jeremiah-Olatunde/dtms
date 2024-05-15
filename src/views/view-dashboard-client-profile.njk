@@ -8,7 +8,7 @@
 {% block content %}
   {%
     call macros.dashboard_content(
-    "Profile",
+    "My Profile",
     client.firstName + " " + client.lastName)
   %}
     <div class="content-wrapper">
@@ -33,7 +33,6 @@
           </li>
         </ul>
         <div class="buttons">
-          <button class="danger">Delete Profile</button>
           <button>Edit Profile</button>
         </div>
       </div>
@@ -48,6 +47,7 @@
             </div>
           {% endfor %}
         </div>
+        <div class="measurements-note">all measurements are in inches</div>
       </div>
     </div>
   {% endcall %}
