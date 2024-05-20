@@ -1,10 +1,10 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
 export const SOCIALS = [
   "facebook",
@@ -29,14 +29,14 @@ class Tailor extends Model<
   declare lastName: string;
   declare firstName: string;
 
-  declare about?: null | string;
-  declare image?: null | string;
+  declare about: null | string;
+  declare image: null | string;
 
-  declare bank?: null | string;
-  declare account?: null | string;
+  declare bank: null | string;
+  declare account: null | string;
 
-  declare socials?: null | Socials;
-  declare address?: null | string;
+  declare address: null | string;
+  declare socials: null | Socials;
 }
 
 Tailor.init(
@@ -55,7 +55,7 @@ Tailor.init(
     },
     phone: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(11),
     },
 
     firstName: {

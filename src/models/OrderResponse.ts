@@ -1,32 +1,33 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type CreationOptional,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
-export type QuotationResponseState = "pending" | "rejected" | "accepted";
+export type OrderResponseState = "pending" | "rejected" | "accepted";
 
-export function isQuotationResponseState(x: any): x is QuotationResponseState {
+export function isOrderResponseState(x: any): x is OrderResponseState {
   return x === "pending" || x === "rejected" || x === "accepted";
 }
 
-class QuotationResponse extends Model<
-  InferAttributes<QuotationResponse>,
-  InferCreationAttributes<QuotationResponse>
+class OrderResponse extends Model<
+  InferAttributes<OrderResponse>,
+  InferCreationAttributes<OrderResponse>
 > {
   declare uid: string;
   declare tailor: string;
   declare client: string;
   declare design: string;
-  declare order: null | string;
-  declare status: QuotationResponseState;
   declare price: number;
   declare completion: Date;
+  declare order: CreationOptional<null | string>;
+  declare status: CreationOptional<OrderResponseState>;
 }
 
-QuotationResponse.init(
+OrderResponse.init(
   {
     uid: {
       unique: true,
@@ -47,6 +48,7 @@ QuotationResponse.init(
       type: DataTypes.CHAR(21),
     },
     order: {
+      defaultValue: null,
       type: DataTypes.CHAR(21),
     },
     price: {
@@ -62,7 +64,7 @@ QuotationResponse.init(
       type: DataTypes.DATEONLY,
     },
   },
-  { sequelize, modelName: "QuotationResponse" },
+  { sequelize, modelName: "OrderResponse" },
 );
 
-export { QuotationResponse };
+export { OrderResponse };

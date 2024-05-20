@@ -1,30 +1,31 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type CreationOptional,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
-export type QuotationRequestState = "pending" | "rejected" | "accepted";
+export type OrderRequestState = "pending" | "rejected" | "accepted";
 
-export function isQuotationRequestState(x: any): x is QuotationRequestState {
+export function isOrderRequestState(x: any): x is OrderRequestState {
   return x === "pending" || x === "rejected" || x === "accepted";
 }
 
-class QuotationRequest extends Model<
-  InferAttributes<QuotationRequest>,
-  InferCreationAttributes<QuotationRequest>
+class OrderRequest extends Model<
+  InferAttributes<OrderRequest>,
+  InferCreationAttributes<OrderRequest>
 > {
   declare uid: string;
   declare tailor: string;
   declare client: string;
   declare design: string;
-  declare response: null | string;
-  declare status: QuotationRequestState;
+  declare response: CreationOptional<null | string>;
+  declare status: CreationOptional<OrderRequestState>;
 }
 
-QuotationRequest.init(
+OrderRequest.init(
   {
     uid: {
       unique: true,
@@ -50,10 +51,11 @@ QuotationRequest.init(
     },
     status: {
       allowNull: false,
+      defaultValue: "pending",
       type: DataTypes.ENUM("pending", "rejected", "accepted"),
     },
   },
-  { sequelize, modelName: "QuotationRequest" },
+  { sequelize, modelName: "OrderRequest" },
 );
 
-export { QuotationRequest };
+export { OrderRequest };

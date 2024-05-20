@@ -1,24 +1,22 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
-export type UserType = "client" | "tailor";
-
-class Login extends Model<
-  InferAttributes<Login>,
-  InferCreationAttributes<Login>
+class Credentials extends Model<
+  InferAttributes<Credentials>,
+  InferCreationAttributes<Credentials>
 > {
   declare uid: string;
   declare email: string;
-  declare hashed: string;
-  declare usertype: UserType;
+  declare password: string;
+  declare usertype: "client" | "tailor";
 }
 
-Login.init(
+Credentials.init(
   {
     uid: {
       unique: true,
@@ -30,9 +28,8 @@ Login.init(
       unique: true,
       allowNull: false,
       type: DataTypes.STRING,
-      validate: { isEmail: true },
     },
-    hashed: {
+    password: {
       allowNull: false,
       type: DataTypes.CHAR(60),
     },
@@ -41,7 +38,7 @@ Login.init(
       type: DataTypes.ENUM("client", "tailor"),
     },
   },
-  { sequelize, modelName: "Login" },
+  { sequelize, modelName: "Credentials" },
 );
 
-export { Login };
+export { Credentials };

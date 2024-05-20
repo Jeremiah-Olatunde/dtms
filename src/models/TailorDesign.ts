@@ -1,10 +1,10 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
 export const GROUPS = ["adults", "kids"] as const;
 export const GENDERS = ["male", "female"] as const;
@@ -32,26 +32,28 @@ export const isGroup = (x: any): x is Group => GROUPS.includes(x);
 export const isGender = (x: any): x is Gender => GENDERS.includes(x);
 export const isOccasion = (x: any): x is Occasion => OCCASIONS.includes(x);
 
-class Design extends Model<
-  InferAttributes<Design>,
-  InferCreationAttributes<Design>
+class TailorDesign extends Model<
+  InferAttributes<TailorDesign>,
+  InferCreationAttributes<TailorDesign>
 > {
   declare uid: string;
   declare tailor: string;
 
-  declare image: string;
   declare price: number;
   declare ranking: number;
+
+  declare image: string;
+  declare title: string;
   declare description: string;
 
-  declare type: Type;
-  declare style: Style;
-  declare group: Group;
-  declare gender: Gender;
-  declare occasion: Occasion;
+  declare type: null | Type;
+  declare style: null | Style;
+  declare group: null | Group;
+  declare gender: null | Gender;
+  declare occasion: null | Occasion;
 }
 
-Design.init(
+TailorDesign.init(
   {
     uid: {
       unique: true,
@@ -63,31 +65,34 @@ Design.init(
       allowNull: false,
       type: DataTypes.CHAR(21),
     },
-    price: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
     image: {
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    price: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
     },
     ranking: {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
+    title: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+    },
     description: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
 
     type: DataTypes.ENUM(...TYPES),
-    occasion: DataTypes.ENUM(...OCCASIONS),
-
+    style: DataTypes.ENUM(...STYLES),
     group: DataTypes.ENUM(...GROUPS),
     gender: DataTypes.ENUM(...GENDERS),
-    style: DataTypes.ENUM(...STYLES),
+    occasion: DataTypes.ENUM(...OCCASIONS),
   },
-  { sequelize, modelName: "Design" },
+  { sequelize, modelName: "TailorDesign" },
 );
 
-export { Design };
+export { TailorDesign };

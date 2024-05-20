@@ -6,17 +6,17 @@ import {
 } from "sequelize";
 import { sequelize } from "./db-connection.js";
 
-class OrderDesign extends Model<
-  InferAttributes<OrderDesign>,
-  InferCreationAttributes<OrderDesign>
+class OrderReview extends Model<
+  InferAttributes<OrderReview>,
+  InferCreationAttributes<OrderReview>
 > {
   declare uid: string;
-  declare image: string;
-  declare title: string;
-  declare description: string;
+  declare order: string;
+  declare rating: number;
+  declare review: string;
 }
 
-OrderDesign.init(
+OrderReview.init(
   {
     uid: {
       unique: true,
@@ -24,20 +24,20 @@ OrderDesign.init(
       primaryKey: true,
       type: DataTypes.CHAR(21),
     },
-    image: {
+    order: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.CHAR(21),
     },
-    title: {
+    rating: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.INTEGER,
     },
-    description: {
+    review: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
   },
-  { sequelize, modelName: "OrderDesign" },
+  { sequelize, modelName: "OrderReview" },
 );
 
-export { OrderDesign };
+export { OrderReview };

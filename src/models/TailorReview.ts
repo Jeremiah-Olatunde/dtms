@@ -1,23 +1,23 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
-class Review extends Model<
-  InferAttributes<Review>,
-  InferCreationAttributes<Review>
+class TailorReview extends Model<
+  InferAttributes<TailorReview>,
+  InferCreationAttributes<TailorReview>
 > {
   declare uid: string;
-  declare text: string;
-  declare rating: number;
   declare tailor: string;
   declare client: string;
+  declare rating: number;
+  declare review: string;
 }
 
-Review.init(
+TailorReview.init(
   {
     uid: {
       unique: true,
@@ -34,16 +34,15 @@ Review.init(
       type: DataTypes.CHAR(21),
     },
     rating: {
+      allowNull: false,
       type: DataTypes.INTEGER,
-      validate: {
-        isNumeric: true,
-        min: 0,
-        max: 10,
-      },
     },
-    text: DataTypes.TEXT,
+    review: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    },
   },
-  { sequelize, modelName: "Review" },
+  { sequelize, modelName: "TailorReview" },
 );
 
-export { Review };
+export { TailorReview };

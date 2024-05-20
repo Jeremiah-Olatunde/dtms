@@ -1,12 +1,13 @@
 import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
   Model,
+  DataTypes,
+  type InferAttributes,
+  type InferCreationAttributes,
 } from "sequelize";
 
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
+export const GENDERS = ["male", "female"] as const;
 export const MEASUREMENTS = [
   "ankle",
   "armhole",
@@ -26,11 +27,10 @@ export const MEASUREMENTS = [
   "writst",
 ] as const;
 
+export type Gender = (typeof GENDERS)[number];
 export type Measurements = Partial<
   Record<(typeof MEASUREMENTS)[number], number>
 >;
-
-export type Gender = "male" | "female";
 
 class Client extends Model<
   InferAttributes<Client>,
@@ -42,10 +42,10 @@ class Client extends Model<
   declare lastName: string;
   declare firstName: string;
 
-  declare image?: null | string;
-  declare gender?: null | Gender;
-  declare address?: null | string;
-  declare measurements?: null | Measurements;
+  declare image: null | string;
+  declare gender: null | Gender;
+  declare address: null | string;
+  declare measurements: null | Measurements;
 }
 
 Client.init(
@@ -60,11 +60,10 @@ Client.init(
       unique: true,
       allowNull: false,
       type: DataTypes.STRING,
-      validate: { isEmail: true },
     },
     phone: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(11),
     },
 
     firstName: {
@@ -76,12 +75,16 @@ Client.init(
       type: DataTypes.STRING,
     },
 
-    gender: DataTypes.ENUM("male", "female"),
+    gender: {
+      allowNull: false,
+      type: DataTypes.ENUM("male", "female"),
+    },
+
     image: DataTypes.STRING,
     address: DataTypes.STRING,
 
     measurements: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
 
       get(): Measurements {
         const raw = this.getDataValue("measurements") as string | null;

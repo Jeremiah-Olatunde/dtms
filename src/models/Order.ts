@@ -1,10 +1,11 @@
 import {
   Model,
   DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
+  type InferAttributes,
+  type CreationOptional,
+  type InferCreationAttributes,
 } from "sequelize";
-import { sequelize } from "./db.js";
+import { sequelize } from "./db-connection.js";
 
 class Order extends Model<
   InferAttributes<Order>,
@@ -18,8 +19,8 @@ class Order extends Model<
   declare price: number;
   declare dueDate: Date;
   declare acceptedDate: Date;
-  declare status: "pending" | "completed";
-  declare timeline: "on track" | "critical" | "overdue";
+  declare status: CreationOptional<"pending" | "cancelled" | "completed">;
+  declare timeline: CreationOptional<"on track" | "overdue" | "critical">;
 }
 
 Order.init(
@@ -56,11 +57,19 @@ Order.init(
     },
     status: {
       allowNull: false,
-      type: DataTypes.ENUM("pending", "complete"),
+      defaultValue: "pending",
+      type: DataTypes.ENUM("pending", "cancelled", "completed"),
     },
     timeline: {
-      allowNull: false,
-      type: DataTypes.ENUM("on track", "overdue", "critical"),
+      type: DataTypes.VIRTUAL, // DataTypes.ENUM("on track", "critical", "overdue"),
+      get() {
+        const due = this.getDataValue("dueDate").getTime();
+        const delta = (due - Date.now()) / (1000 * 60 * 60 * 24);
+
+        if (delta < 0) return "overdue";
+        if (delta < 14) return "critical";
+        return "on track";
+      },
     },
   },
   { sequelize, modelName: "Order" },
