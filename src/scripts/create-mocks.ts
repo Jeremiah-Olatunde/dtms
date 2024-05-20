@@ -1,38 +1,52 @@
 import "dotenv/config";
+import { readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
+
 import {
+  reset,
   mockClients,
   mockTailors,
-  mockDesigns,
-  mockLogins,
-  mockReviews,
-  mockQuotationRequests,
-  mockQuotationResponses,
+  mockCredentials,
+  mockTailorDesigns,
+  mockTailorReviews,
+  mockOrderRequests,
+  mockOrderResponses,
   mockOrders,
-} from "../models/mock.js";
+  mockOrderReviews,
+} from "../models/mock-models.js";
 
-const images = resolve(
+const base = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "../public/img/mock",
 );
 
-const clients = await mockClients(100, images, true);
-const tailors = await mockTailors(25, images, true);
+await reset();
 
-await mockDesigns(500, tailors, images, true);
-await mockReviews(500, tailors, clients, true);
-await mockLogins([...clients, ...tailors], true);
+const clients = await mockClients(1000, {
+  baseUrl: "/img/mock/users/clients",
+  images: readdirSync(resolve(base, "./users/clients")),
+});
 
-const quotationRequests = await mockQuotationRequests(
-  500,
-  clients,
-  tailors,
-  images,
-  true,
-);
-const quotationResponses = await mockQuotationResponses(
-  quotationRequests,
-  true,
-);
-await mockOrders(quotationResponses, true);
+const tailors = await mockTailors(100, {
+  baseUrl: "/img/mock/users/tailors",
+  images: readdirSync(resolve(base, "./users/tailors")),
+});
+
+await mockCredentials([...clients, ...tailors]);
+
+await mockTailorDesigns(2000, tailors, {
+  baseUrl: "/img/mock/designs/",
+  images: readdirSync(resolve(base, "./designs")),
+});
+
+await mockTailorReviews(500, tailors, clients);
+
+const requests = await mockOrderRequests(2000, clients, tailors, {
+  baseUrl: "/img/mock/designs",
+  images: readdirSync(resolve(base, "./designs")),
+});
+
+const responses = await mockOrderResponses(requests);
+const orders = await mockOrders(responses);
+await mockOrderReviews(orders);
