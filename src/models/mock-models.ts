@@ -1,6 +1,3 @@
-import { join, relative, resolve } from "path";
-import { readdirSync } from "fs";
-
 import { nanoid } from "nanoid";
 import { faker } from "@faker-js/faker";
 
@@ -25,12 +22,6 @@ import { OrderDesign } from "./OrderDesign.js";
 import { OrderRequest } from "./OrderRequest.js";
 import { OrderResponse } from "./OrderResponse.js";
 import { OrderReview } from "./OrderReview.js";
-
-// function toImageUrl(directory: string, filename: string): string {
-//   const fullPath = join(directory, filename);
-//   const publicPath = "D:\\coding\\projects\\dtms\\src\\public";
-//   return "/" + relative(publicPath, fullPath).replaceAll("\\", "/");
-// }
 
 const phonePrefixes = ["070", "081", "080", "090"];
 
@@ -74,7 +65,11 @@ export async function mockClients(
         lastName,
         firstName,
         uid: nanoid(),
-        email: faker.internet.email({ firstName, lastName, allowSpecialCharacters: true }),
+        email: faker.internet.email({
+          firstName,
+          lastName,
+          allowSpecialCharacters: true,
+        }),
         phone: random.choice(phonePrefixes) + faker.string.numeric(8),
         image: `${imageData.baseUrl}/${random.choice(genderedImages[gender])}`,
         address: faker.location.streetAddress({ useFullAddress: true }),
@@ -107,7 +102,11 @@ export async function mockTailors(
         firstName,
         uid: nanoid(),
         about: faker.lorem.paragraph(6),
-        email: faker.internet.email({ firstName, lastName, allowSpecialCharacters: true }),
+        email: faker.internet.email({
+          firstName,
+          lastName,
+          allowSpecialCharacters: true,
+        }),
         phone: random.choice(phonePrefixes) + faker.string.numeric(8),
         image: `${imageData.baseUrl}/${random.choice(imageData.images)}`,
 
