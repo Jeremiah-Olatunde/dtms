@@ -1,0 +1,127 @@
+img {
+  object-fit: cover;
+}
+
+.tag-checkbox {
+  display: inline-block;
+}
+
+.tag-checkbox input[type="checkbox"] {
+  display: none;
+}
+.tag-checkbox input[type="radio"] {
+  display: none;
+}
+
+.tag-checkbox label {
+  display: inline-block;
+  background-color: #7166f00d;
+  color: #7166f0;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #7166f0;
+  cursor: pointer;
+}
+
+.tag-checkbox input[type="checkbox"]:checked + label {
+  background-color: #7166f0;
+  color: #fff;
+}
+
+.tag-checkbox input[type="radio"]:checked + label {
+  background-color: #7166f0;
+  color: #fff;
+}
+
+/*===MEASUREMENTS================================================*/
+
+.content-wrapper {
+  flex: 1;
+  margin-top: 15px;
+  display: grid;
+
+  grid-gap: 15px;
+  grid-template-columns: 0.4fr 0.6fr;
+}
+
+.image-container img {
+  height: 100%;
+  object-fit: cover;
+  border: 3px solid rgba(113, 102, 240, 0.6);
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f7f7fd;
+  border: 3px solid rgba(113, 102, 240, 0.6);
+  padding: 10px 20px;
+}
+
+.buttons button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  border: 0;
+  border-radius: 0;
+  background: rgba(113, 102, 240, 0.3);
+}
+
+.measurements-container {
+  padding: 20px;
+  grid-row: 1 / span 2;
+  grid-column: 2 / span 1;
+  background-color: #e5e5f4;
+  border: 3px solid rgba(113, 102, 240, 0.6);
+}
+
+.measurements {
+}
+
+.measurement-items {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.measurement-items .item {
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+  background: rgba(113, 102, 240, 0.2);
+}
+
+.measurements-note {
+  position: absolute;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(113, 102, 240, 0.6);
+  bottom: 10px;
+  transform: translateX(-50%);
+  left: 50%;
+  width: max-content;
+  margin: auto;
+  font-variant: small-caps;
+}
+
+.part {
+  font-weight: 500;
+  padding: 5px 10px;
+  border: 3px solid rgba(113, 102, 240, 0.2);
+  border-right: 0;
+}
+
+.measurement {
+  padding: 5px;
+  color: white;
+  font-size: 19px;
+  font-weight: 700;
+  text-align: center;
+  border: 3px solid transparent;
+  background: rgba(113, 102, 240, 0.8);
+}

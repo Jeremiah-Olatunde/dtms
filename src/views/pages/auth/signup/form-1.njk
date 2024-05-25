@@ -1,0 +1,122 @@
+{# <section class="ecom-wc__form col-lg-6 col-12" id="signup-form-1"> #}
+<section class="ecom-wc__form" id="signup-1">
+  <div class="ecom-wc__form-inner">
+    <h3 class="ecom-wc__form-title ecom-wc__form-title__one">
+      Create An Account
+    </h3>
+    <form class="ecom-wc__form-main p-0" hx-signup-form-1>
+      <div class="row">
+        <div>
+          <div class="form-group homec-form-input">
+            <label for="email" class="ecom-wc__form-label mg-btm-10"
+              >Email Address <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email Address"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label class="ecom-wc__form-label mg-btm-10"
+              >Account Type <span style="color: red;">*</span></label
+            >
+            <div class="form-group" style="margin-top: 0px; font-size: 16px;">
+              <select
+                class="property-sidebar__group homec-border"
+                style="font-size: 16px;"
+                id="usertype"
+                name="usertype"
+              >
+                <option value="default">select account type</option>
+                <option value="tailor">Tailor</option>
+                <option value="client">Client</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label for="phone" class="ecom-wc__form-label mg-btm-10"
+              >Phone Number <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                type="text"
+                id="phone"
+                name="phone"
+                placeholder="Phone Number"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label for="password" class="ecom-wc__form-label mg-btm-10"
+              >Password <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                id="password"
+                type="password"
+                name="password"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label for="confirm" class="ecom-wc__form-label mg-btm-10"
+              >Confirm Password <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                id="confirm"
+                type="password"
+                name="confirm"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-mg-top-30">
+        <div class="ecom-wc__button ecom-wc__button--bottom">
+          <a class="homec-btn homec-btn__second" href="#signup-2"
+            ><span>Next Step</span></a
+          >
+          <button
+            class="homec-btn homec-btn__second homec-btn__social"
+            type="button"
+          >
+            <span class="ntfmax-wc__btn-icon"
+              ><img src="/img/google.svg" alt="#"
+            /></span>
+            <span>Sign In With Google</span>
+          </button>
+        </div>
+      </div>
+      <div class="form-group mg-top-20">
+        <div class="ecom-wc__bottom">
+          <p class="ecom-wc__text">
+            Already have Account? <a href="/auth/login">Log In</a>
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

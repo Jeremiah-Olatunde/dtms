@@ -13,12 +13,12 @@ import nunjucks from "nunjucks";
 import * as session from "express-session";
 import MySQLStore from "express-mysql-session";
 
-import { router as home } from "./routes/router-home.js";
-import { router as catalog } from "./routes/router-catalog.js";
-import { router as tailors } from "./routes/router-tailors.js";
-import { router as contact } from "./routes/router-contact.js";
-import { router as auth } from "./routes/router-auth.js";
-import { router as dashboard } from "./routes/router-dashboard.js";
+import { router as home } from "./routes/home.js";
+import { router as tailors } from "./routes/tailors.js";
+import { router as contact } from "./routes/contact.js";
+import { router as designs } from "./routes/designs.js";
+import { router as auth } from "./routes/auth.js";
+// import { router as dashboard } from "./routes/router-dashboard.js";
 
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -110,8 +110,8 @@ nunjucks
 
 app.get("/", (_, response) => response.redirect("/home"));
 app.use("/home", home);
-app.use("/catalog", catalog);
 app.use("/tailors", tailors);
 app.use("/contact", contact);
+app.use("/designs", designs);
 app.use("/auth", auth);
-app.use("/dashboard", dashboard);
+// app.use("/dashboard", dashboard);

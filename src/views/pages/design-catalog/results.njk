@@ -1,0 +1,32 @@
+{% from "macros/design-card.njk" import designCard %}
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="homec-grid" role="tabpanel">
+    <div class="row">
+      {% for design in designs %}
+        <div class="col-md-6 col-12 mg-top-30">{{ designCard(design) }}</div>
+      {% endfor %}
+    </div>
+    <!--Bottom Pagination section-->
+    <div class="row mg-top-40">
+      <div class="homec-pagination">
+        <ul class="homec-pagination__list list-none">
+          {% for i in range(0, (total / limit) | ceil) %}
+            <li class="{{ "active" if i === (offset / limit) else "" }}">
+              <a
+                hx-get="/designs?offset={{ i * limit }}&limit={{ limit }}"
+                hx-include="[hx-designs-form]"
+                hx-boost="true"
+                hx-target="body"
+                hx-push-url="true"
+                style="cursor: pointer;"
+              >
+                {{ (i + 1).toString().padStart(2, "0") }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

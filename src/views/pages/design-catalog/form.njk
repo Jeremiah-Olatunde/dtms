@@ -1,0 +1,69 @@
+<form
+  class="property-sidebar"
+  hx-designs-form
+  hx-include="[hx-designs-search]"
+  hx-get="/designs?offset=0&limit={{ limit }}"
+  hx-trigger="input"
+  hx-push-url="true"
+  hx-target="body"
+>
+  <div class="property-sidebar__single">
+    {% for key, value in formData %}
+      <div class="property-sidebar__filters">
+        <h4 class="property-sidebar__title">
+          <label for="{{ key }}">{{ value.display }}</label>
+        </h4>
+
+        <div class="form-group tag-checkbox">
+          {% for option in value.options %}
+            <input
+              type="checkbox"
+              name="{{ value.action }}-{{ key }}"
+              id="{{ option }}"
+              value="{{ option }}"
+              {{ query[value.action + "-" + key] | ifIn(option, "checked") }}
+            />
+            <label for="{{ option }}">{{ option }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      <br />
+    {% endfor %}
+    <div class="property-sidebar__filters">
+      <h4 class="property-sidebar__title">
+        <label for="price">Sort By Price</label>
+      </h4>
+
+      <div class="form-group tag-checkbox">
+        <input
+          type="radio"
+          name="sort-price"
+          id="NONE"
+          value=""
+          {{ "checked" if query["sort-price"] === undefined }}
+          {{ "checked" if query["sort-price"] === "" }}
+        />
+        <label for="NONE">NONE</label>
+
+        <input
+          type="radio"
+          name="sort-price"
+          id="ASC"
+          value="ASC"
+          {{ query["sort-price"] | ifIn("ASC", "checked") }}
+        />
+        <label for="ASC">ASC</label>
+
+        <input
+          type="radio"
+          name="sort-price"
+          id="DESC"
+          value="DESC"
+          {{ query["sort-price"] | ifIn("DESC", "checked") }}
+        />
+        <label for="DESC">DESC</label>
+      </div>
+    </div>
+    <br />
+  </div>
+</form>

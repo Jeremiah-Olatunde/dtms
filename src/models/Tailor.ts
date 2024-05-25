@@ -29,14 +29,14 @@ class Tailor extends Model<
   declare lastName: string;
   declare firstName: string;
 
-  declare about: null | string;
-  declare image: null | string;
+  declare about?: null | string;
+  declare image?: null | string;
 
-  declare bank: null | string;
-  declare account: null | string;
+  declare bank?: null | string;
+  declare account?: null | string;
 
-  declare address: null | string;
-  declare socials: null | Socials;
+  declare address?: null | string;
+  declare socials?: null | Socials;
 }
 
 Tailor.init(

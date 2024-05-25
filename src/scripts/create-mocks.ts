@@ -7,13 +7,12 @@ import {
   reset,
   mockClients,
   mockTailors,
-  mockCredentials,
   mockTailorDesigns,
-  mockTailorReviews,
-  mockOrderRequests,
-  mockOrderResponses,
+  mockCredentials,
   mockOrders,
   mockOrderReviews,
+  mockQuotationRequests,
+  mockQuotationResponses,
 } from "../models/mock-models.js";
 
 const base = resolve(
@@ -23,30 +22,28 @@ const base = resolve(
 
 await reset();
 
-const clients = await mockClients(1000, {
+const clients = await mockClients(20, {
   baseUrl: "/img/mock/users/clients",
   images: readdirSync(resolve(base, "./users/clients")),
 });
 
-const tailors = await mockTailors(100, {
+const tailors = await mockTailors(5, {
   baseUrl: "/img/mock/users/tailors",
   images: readdirSync(resolve(base, "./users/tailors")),
 });
 
 await mockCredentials([...clients, ...tailors]);
 
-await mockTailorDesigns(2000, tailors, {
+await mockTailorDesigns(100, tailors, {
   baseUrl: "/img/mock/designs/",
   images: readdirSync(resolve(base, "./designs")),
 });
 
-await mockTailorReviews(500, tailors, clients);
-
-const requests = await mockOrderRequests(2000, clients, tailors, {
+const requests = await mockQuotationRequests(750, clients, tailors, {
   baseUrl: "/img/mock/designs",
   images: readdirSync(resolve(base, "./designs")),
 });
 
-const responses = await mockOrderResponses(requests);
+const responses = await mockQuotationResponses(requests);
 const orders = await mockOrders(responses);
 await mockOrderReviews(orders);

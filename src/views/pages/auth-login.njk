@@ -1,0 +1,146 @@
+{% extends "base.njk" %}
+{% block app %}
+  <section class="ecom-wc ecom-wc__full ecom-bg-cover">
+    <div class="container-fluid">
+      <div class="row">
+        <!--This is the login illustration section-->
+        <div class="col-lg-6 col-12 d-none d-lg-block" style="padding: 0;">
+          <div
+            class="ecom-wc__inner homec-bg-cover"
+            style="background-image: url('/img/welcome-bg.svg');"
+          >
+            <div class="ecom-wc__logo">
+              <a href="/home"
+                ><img
+                  loading="lazy"
+                  src="/img/tms-logo-white-nobackground.png"
+                  alt="#"
+              /></a>
+            </div>
+            <div class="ecom-wc__inside">
+              <div class="ecom-wc__middle">
+                <a href="/home"
+                  ><img loading="lazy" src="/img/landing-page-svg.jpg" alt="#"
+                /></a>
+                <div class="ecom-wc__countdown--title" style="font-size: 23px;">
+                  Management<span style="font-size: 18px;">Platform</span>
+                </div>
+                <div
+                  class="ecom-wc__countdown--title ecom-wc__countdown--title--v2"
+                  style="font-size: 23px;"
+                >
+                  Organization<span style="font-size: 18px;">Tool</span>
+                </div>
+              </div>
+
+              <div class="ecom-wc__footer">
+                <ul class="ecom-wc__footer--list list-none">
+                  <li><a href="#">Elevating Your Tailoring Experience</a></li>
+                </ul>
+              </div>
+              <p class="ecom-wc__footer--text">
+                © 2024 D-TMS | All Rights Reserved
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--This is the credentials section-->
+        <div class="col-lg-6 col-12" style="padding: 0;">
+          <div class="ecom-wc__form">
+            <div class="ecom-wc__form-inner">
+              <h3 class="ecom-wc__form-title ecom-wc__form-title__one">
+                Log In To Your Account<span>Welcome Back To D-TMS!</span>
+              </h3>
+              <form
+                class="ecom-wc__form-main p-0"
+                hx-post="/auth/login"
+                hx-target="[hx-validation-modal]"
+              >
+                <div class="form-group homec-form-input">
+                  <label class="ecom-wc__form-label mg-btm-10"
+                    >Email Address <span style="color: red;">*</span></label
+                  >
+                  <div class="form-group__input">
+                    <input
+                      class="ecom-wc__form-input"
+                      type="email"
+                      name="email"
+                      placeholder="yours@gmail.com"
+                      required="required"
+                    />
+                  </div>
+                </div>
+                <div class="form-group homec-form-input">
+                  <label class="ecom-wc__form-label mg-btm-10"
+                    >Password <span style="color: red;">*</span></label
+                  >
+                  <div class="form-group__input">
+                    <input
+                      class="ecom-wc__form-input"
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      id="password-field"
+                      type="password"
+                      name="password"
+                      required="required"
+                    />
+                  </div>
+                </div>
+                <div class="form-group form-mg-top-30">
+                  <div class="ecom-wc__button ecom-wc__button--bottom">
+                    <input
+                      class="homec-btn homec-btn__second"
+                      type="submit"
+                      value="login"
+                    />
+                    <button
+                      class="homec-btn homec-btn__second homec-btn__social"
+                      type="button"
+                    >
+                      <span class="ntfmax-wc__btn-icon"
+                        ><img loading="lazy" src="/img/google.svg" alt="#"
+                      /></span>
+                      <span>Sign In With Google</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group mg-top-20">
+                  <div class="ecom-wc__bottom">
+                    <p class="ecom-wc__text">
+                      Don’t have an account?
+                      <a href="/auth/signup">Create Account</a>
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div hx-validation-modal></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .form-validation-modal {
+      width: 50vw;
+      height: 100%;
+
+      top: 0;
+      left: 50%;
+      position: fixed;
+      z-index: 1000;
+
+      background: rgba(0, 0, 0, 0.4);
+
+      display: grid;
+      place-items: center;
+    }
+
+    .form-validation-content {
+      width: 60%;
+      padding: 30px;
+      background: white;
+    }
+  </style>
+{% endblock %}

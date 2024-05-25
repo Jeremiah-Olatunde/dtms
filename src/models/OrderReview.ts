@@ -13,7 +13,9 @@ class OrderReview extends Model<
   declare uid: string;
   declare order: string;
   declare rating: number;
-  declare review: string;
+  declare client: string;
+  declare tailor: string;
+  declare content: string;
 }
 
 OrderReview.init(
@@ -32,7 +34,15 @@ OrderReview.init(
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-    review: {
+    tailor: {
+      allowNull: false,
+      type: DataTypes.CHAR(21),
+    },
+    client: {
+      allowNull: false,
+      type: DataTypes.CHAR(21),
+    },
+    content: {
       allowNull: false,
       type: DataTypes.TEXT,
     },

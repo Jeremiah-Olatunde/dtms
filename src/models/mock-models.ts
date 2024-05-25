@@ -5,7 +5,6 @@ import * as date from "../utils/date.js";
 import * as random from "../utils/random.js";
 
 import { Credentials } from "./Credentials.js";
-import { TailorReview } from "./TailorReview.js";
 import { Tailor, SOCIALS, Socials } from "./Tailor.js";
 import { Client, GENDERS, MEASUREMENTS } from "./Client.js";
 import {
@@ -19,8 +18,8 @@ import {
 
 import { Order } from "./Order.js";
 import { OrderDesign } from "./OrderDesign.js";
-import { OrderRequest } from "./OrderRequest.js";
-import { OrderResponse } from "./OrderResponse.js";
+import { QuotationRequest } from "./QuotationRequest.js";
+import { QuotationResponse } from "./QuotationResponse.js";
 import { OrderReview } from "./OrderReview.js";
 
 const phonePrefixes = ["070", "081", "080", "090"];
@@ -164,29 +163,7 @@ export async function mockTailorDesigns(
   return designs;
 }
 
-export async function mockTailorReviews(
-  size: number,
-  tailors: Tailor[],
-  clients: Client[],
-): Promise<TailorReview[]> {
-  const reviews: TailorReview[] = [];
-
-  for (let i = 0; i < size; i++) {
-    reviews.push(
-      await TailorReview.create({
-        uid: nanoid(),
-        rating: random.range(3, 10),
-        review: faker.lorem.paragraph(6),
-        client: random.choice(clients).uid,
-        tailor: random.choice(tailors).uid,
-      }),
-    );
-  }
-
-  return reviews;
-}
-
-export async function mockOrderRequests(
+export async function mockQuotationRequests(
   size: number,
   clients: Client[],
   tailors: Tailor[],
@@ -194,8 +171,8 @@ export async function mockOrderRequests(
     baseUrl: string;
     images: string[];
   },
-): Promise<OrderRequest[]> {
-  const quotationRequests: OrderRequest[] = [];
+): Promise<QuotationRequest[]> {
+  const quotationRequests: QuotationRequest[] = [];
 
   for (let i = 0; i < size; i++) {
     const design = await OrderDesign.create({
@@ -206,7 +183,7 @@ export async function mockOrderRequests(
     });
 
     quotationRequests.push(
-      await OrderRequest.create({
+      await QuotationRequest.create({
         uid: nanoid(),
         design: design.uid,
         client: random.choice(clients).uid,
@@ -218,10 +195,10 @@ export async function mockOrderRequests(
   return quotationRequests;
 }
 
-export async function mockOrderResponses(
-  quotationRequests: OrderRequest[],
-): Promise<OrderResponse[]> {
-  const quotationResponses: OrderResponse[] = [];
+export async function mockQuotationResponses(
+  quotationRequests: QuotationRequest[],
+): Promise<QuotationResponse[]> {
+  const quotationResponses: QuotationResponse[] = [];
 
   for (const quotationRequest of quotationRequests) {
     const status = random.choice(["pending", "rejected", "accepted"] as const);
@@ -241,7 +218,7 @@ export async function mockOrderResponses(
     await quotationRequest.update({ response: uid });
 
     quotationResponses.push(
-      await OrderResponse.create({
+      await QuotationResponse.create({
         uid,
         tailor: quotationRequest.tailor,
         client: quotationRequest.client,
@@ -256,7 +233,7 @@ export async function mockOrderResponses(
 }
 
 export async function mockOrders(
-  quotationResponses: OrderResponse[],
+  quotationResponses: QuotationResponse[],
   reset?: boolean,
 ): Promise<Order[]> {
   const orders: Order[] = [];
@@ -322,8 +299,11 @@ export async function mockOrderReviews(
       await OrderReview.create({
         uid: nanoid(),
         rating: random.range(3, 10),
-        review: faker.lorem.paragraph(6),
+        content: faker.lorem.paragraph(4),
+
         order: order.uid,
+        tailor: order.tailor,
+        client: order.client,
       }),
     );
   }
@@ -337,11 +317,10 @@ export async function reset() {
   await Client.sync({ force: true });
   await Tailor.sync({ force: true });
   await TailorDesign.sync({ force: true });
-  await TailorReview.sync({ force: true });
 
   await Order.sync({ force: true });
   await OrderReview.sync({ force: true });
   await OrderDesign.sync({ force: true });
-  await OrderRequest.sync({ force: true });
-  await OrderResponse.sync({ force: true });
+  await QuotationRequest.sync({ force: true });
+  await QuotationResponse.sync({ force: true });
 }

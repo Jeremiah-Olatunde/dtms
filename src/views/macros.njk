@@ -1,0 +1,201 @@
+{# {% macro review(review) %}
+  <div class="homec-testimonial homec-testimonial--v2">
+    <div class="homec-testimonial__main">
+      <ul class="homec-rating list-none mg-btm-15">
+        {% for i in range(0, (review.rating / 2) | round) %}
+          <li><i class="fa-solid fa-star"></i></li>
+        {% endfor %}
+        <span class="homec-primary-color" style="font-weight: 600;"
+          >{{ review.rating }}/10</span
+        >
+      </ul>
+      <span class="homec-primary-color">{{ review.createdAt }} </span>
+      <p class="homec-testimonial__text">{{ review.text }}</p>
+      <div class="homec-testimonial__bottom mg-top-10">
+        <div class="homec-testimonial__author">
+          <div class="homec-testimonial__author--info">
+            <h5 class="homec-testimonial__author--title">
+              {{ review.client.firstName }}
+              {{ review.client.lastName }}
+            </h5>
+            <p class="homec-testimonial__author--position">Client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="homec-testimonial__img">
+      <div class="homec-testimonial__quote">
+        <i class="fa-solid fa-quote-left"></i>
+      </div>
+      <img
+        loading="lazy"
+        src="{{ review.client.image }}"
+        alt="
+          photo of 
+          {{ review.client.firstName }} 
+          {{ review.client.lastName }}"
+      />
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro dashboard_sidebar(usertype, active) %}
+  <aside class="sidebar">
+    <div>
+      <a href="/home" class="sidebar-logo" style="margin-bottom: 40px;">
+        <img src="/img/tms_logo-without-background.png" alt="#" />
+      </a>
+
+      {%
+        set sidebar_items = [
+          "home",
+          "orders",
+          "quotations",
+          "invoices",
+          "reviews",
+          "profile"
+        ]
+      %}
+
+      {% for item in sidebar_items %}
+        <a
+          class="sidebar-item"
+          href="/dashboard/{{ usertype }}/{{ item }}"
+          {{ "sidebar-active" if item === active }}
+        >
+          {{ item | dehyphenateAndCapitalize }}
+          {#           {% if item !== active %}
+            <div class="fancy-sidebar">{{ item | capitalize }}</div>
+          {% endif %} #}
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="logout-container">
+      <a
+        class="logout sidebar-item"
+        href="/dashboard/{{ usertype }}/{{ item }}"
+        {{ "sidebar-active" if item === active }}
+      >
+        <svg
+          class="logout-icon"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_1017_272846)">
+            <path
+              d="M7.50224 15.7537C7.50224 16.0247 7.50895 16.2465 7.5 16.4683C7.4597 17.5682 6.52164 18.2515 5.4806 17.9155C4.00075 17.4383 2.52761 16.9387 1.05448 16.4392C0.380597 16.2107 0 15.6641 0 14.9405C0 10.4892 0 6.03569 0.00223881 1.58218C0.00223881 0.627852 0.629104 0.00955666 1.59403 0.00731646C4.28731 0.00283606 6.98284 -0.00164434 9.67612 0.000595862C11.0104 0.00283606 11.9798 0.961641 12 2.29904C12.0112 2.99126 12.0067 3.68124 12 4.37347C11.9955 4.90439 11.6933 5.25162 11.2478 5.25162C10.8022 5.25386 10.4955 4.90663 10.491 4.37571C10.4843 3.69693 10.4933 3.0159 10.4888 2.33712C10.4843 1.79276 10.209 1.50153 9.67388 1.49705C8.72463 1.48585 7.77761 1.49481 6.82836 1.49481C6.72313 1.49481 6.61791 1.49481 6.46791 1.49481C6.51492 1.55081 6.53284 1.59114 6.56418 1.60682C7.24254 1.91597 7.51119 2.46481 7.51119 3.1884C7.50672 6.72791 7.50895 10.2674 7.50895 13.8069C7.50895 13.9436 7.50895 14.0802 7.50895 14.2415C8.32164 14.2415 9.09179 14.2662 9.8597 14.2303C10.2649 14.2124 10.4888 13.8898 10.491 13.4396C10.4978 12.5031 10.4955 11.5645 10.4933 10.6259C10.4933 10.2854 10.594 10.0008 10.9119 9.83507C11.3888 9.58865 11.9754 9.89332 11.9888 10.4511C12.0179 11.5511 12.0493 12.6577 11.9664 13.7532C11.8746 14.9494 10.9052 15.7447 9.69403 15.7514C8.97537 15.7559 8.26343 15.7537 7.50224 15.7537Z"
+            ></path>
+            <path
+              d="M13.4922 6.75005C13.4922 6.02423 13.499 5.33425 13.49 4.64651C13.4855 4.27463 13.5908 3.96997 13.9512 3.81539C14.3116 3.66082 14.6027 3.79523 14.8669 4.06181C15.7982 5.0027 16.7385 5.93462 17.6721 6.87326C18.1042 7.30786 18.1109 7.69094 17.6878 8.11882C16.7475 9.06642 15.8005 10.0073 14.8579 10.9549C14.6072 11.2058 14.3251 11.3402 13.9736 11.1946C13.6109 11.0445 13.49 10.7533 13.4945 10.3769C13.5012 9.68695 13.4967 8.99473 13.4967 8.24875C13.3557 8.24875 13.2325 8.24875 13.1094 8.24875C12.2788 8.24875 11.446 8.25099 10.6154 8.24651C10.0691 8.24427 9.7512 7.962 9.75792 7.4938C9.76239 7.03456 10.0893 6.75453 10.6333 6.75229C11.5646 6.75005 12.5005 6.75005 13.4922 6.75005Z"
+            ></path>
+          </g>
+          <defs>
+            <clipPath id="clip0_1017_272846">
+              <rect width="18" height="18" fill="white"></rect>
+            </clipPath>
+          </defs>
+        </svg>
+        logout
+      </a>
+    </div>
+  </aside>
+  <style>
+    .sidebar {
+      background: #e5e5f4;
+      border-right: 3px solid rgba(113, 102, 240, 0.6);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar-logo {
+      padding: 5px 10px;
+      margin-bottom: 40px;
+    }
+
+    .sidebar-logo img {
+      width: 55%;
+    }
+
+    .sidebar-item {
+      width: 100%;
+      cursor: pointer;
+      color: rgba(113, 102, 240, 0.4);
+      font-weight: 900;
+      font-size: 25px;
+      padding: 20px 30px;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [sidebar-active] {
+      color: rgba(113, 102, 240);
+    }
+
+    .logout {
+      font-size: 20px;
+      font-weight: 700;
+      color: rgb(113, 102, 240);
+      font-variant: small-caps;
+      text-transform: uppercase;
+    }
+
+    .logout-icon {
+      height: 30px;
+      aspect-ratio: 1;
+      fill: rgb(113, 102, 240);
+    }
+  </style>
+{% endmacro %}
+
+{% macro dashboard_content(main_header, sub_header) %}
+  <main class="dashboard-content">
+    <header>
+      <div class="fancy-header">{{ main_header.split(" ").at(-1) }}</div>
+      <h2 class="homec-dashboard__heading m-0 main-header">
+        {{ main_header }}
+      </h2>
+      <p class="sub-header">{{ sub_header }}</p>
+    </header>
+
+    {{ caller() }}
+  </main>
+  <style>
+    .dashboard-content {
+      overflow-y: scroll;
+
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .dashboard-content header {
+      padding: 10px 20px;
+      background: #f7f7fd;
+      position: relative;
+      border: 3px solid rgba(113, 102, 240, 0.6);
+    }
+
+    .dashboard-content .main-header {
+      font-size: 30px;
+      z-index: 100;
+      position: relative;
+    }
+
+    .fancy-header {
+      position: absolute;
+      font-size: 76px;
+      color: rgba(113, 102, 240, 0.2);
+      font-weight: 800;
+      z-index: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateY(-50%);
+    }
+  </style>
+{% endmacro %}
+ #}

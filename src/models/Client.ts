@@ -42,10 +42,10 @@ class Client extends Model<
   declare lastName: string;
   declare firstName: string;
 
-  declare image: null | string;
-  declare gender: null | Gender;
-  declare address: null | string;
-  declare measurements: null | Measurements;
+  declare image?: null | string;
+  declare gender?: null | Gender;
+  declare address?: null | string;
+  declare measurements?: null | Measurements;
 }
 
 Client.init(

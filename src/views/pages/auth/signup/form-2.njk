@@ -1,0 +1,190 @@
+{# <section class="ecom-wc__form col-lg-6 col-12" id="signup-2"> #}
+<section class="ecom-wc__form" id="signup-2">
+  <div class="ecom-wc__form-inner">
+    <h3 class="ecom-wc__form-title ecom-wc__form-title__one">
+      Just A Few More Steps <span>fill in your details below</span>
+    </h3>
+    <form
+      class="ecom-wc__form-main p-0"
+      hx-encoding="multipart/form-data"
+      hx-signup-form-2
+    >
+      <div class="row custom-form">
+        <div class="custom-upload">
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="upload-image-input"
+            style="display: none;"
+          />
+
+          <label for="image">
+            <div class="custom-image-container">
+              <img
+                class="custom-upload-image"
+                src="/img/client-detail.png"
+                alt="#"
+              />
+            </div>
+            <img class="custom-upload-svg" src="/img/camera.svg" alt="" />
+          </label>
+        </div>
+
+        <div class="custom-gender">
+          <div class="gender-container">
+            <div class="tag-checkbox">
+              <input type="radio" name="gender" id="male" value="male" />
+              <label for="male">male</label>
+
+              <input type="radio" name="gender" id="female" value="female" />
+              <label for="female">female</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label for="firstName" class="ecom-wc__form-label mg-btm-10"
+              >First Name <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group homec-form-input">
+            <label for="lastName" class="ecom-wc__form-label mg-btm-10"
+              >Last Name <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <input
+                class="ecom-wc__form-input"
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Last Name"
+                required="required"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="height: ">
+          <div class="form-group homec-form-input">
+            <label for="address" class="ecom-wc__form-label mg-btm-10"
+              >Address <span style="color: red;">*</span></label
+            >
+            <div class="form-group__input">
+              <textarea
+                style="height: 100px;"
+                class="ecom-wc__form-input"
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Enter Your Address"
+                required="required"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group form-mg-top25">
+        <div class="row">
+          <div
+            class="col-lg-6 col-md-6 col-12 ecom-wc__button ecom-wc__button--bottom"
+          >
+            <a
+              class="homec-btn homec-btn__second homec-property-ag__button"
+              href="#signup-1"
+              style="background: rgba(130, 102, 240, 0.1);"
+              ><span>Previous Step</span></a
+            >
+          </div>
+          <div
+            class="col-lg-6 col-md-6 col-12 ecom-wc__button ecom-wc__button--bottom"
+          >
+            <a
+              class="homec-btn homec-btn__second homec-property-ag__button"
+              href="#signup-3"
+              ><span>Next Step</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .custom-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .custom-upload {
+    display: grid;
+    place-items: center;
+  }
+
+  .custom-image-container {
+    height: 200px;
+    cursor: pointer;
+    overflow: hidden;
+    background: black;
+    border-radius: 100%;
+    border: 5px solid #7166f0;
+  }
+
+  .custom-upload-image {
+    opacity: 0.5;
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .custom-upload-svg {
+    cursor: pointer;
+
+    display: grid;
+    opacity: 0.95;
+
+    height: 30px;
+    widows: 30px;
+
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-form-input {
+  }
+
+  .custom-gender {
+    display: grid;
+    place-items: center;
+  }
+
+  .gender-container {
+    height: 90%;
+    width: 90%;
+    border-radius: 20px;
+    background: rgba(113, 102, 240, 0.1);
+    display: grid;
+    place-items: center;
+  }
+</style>
