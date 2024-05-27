@@ -8,23 +8,50 @@ import { Order } from "../models/Order.js";
 export const router = Router();
 
 router.get("/mock-login-details", async (_, response) => {
-  const credentials = await Credentials.findAll({
-    raw: true,
-    where: { usertype: "tailor" },
+  let tailors;
+
+  {
+    const credentials = await Credentials.findAll({
+      raw: true,
+      where: { usertype: "tailor" },
+    });
+
+    const withCount = await Promise.all(
+      credentials.map(async (cred) => {
+        return [
+          await Order.count({ where: { tailor: cred.uid } }),
+          cred,
+        ] as const;
+      }),
+    );
+
+    tailors = withCount.toSorted(([a], [b]) => b - a);
+  }
+
+  let clients;
+
+  {
+    const credentials = await Credentials.findAll({
+      raw: true,
+      where: { usertype: "client" },
+    });
+
+    const withCount = await Promise.all(
+      credentials.map(async (cred) => {
+        return [
+          await Order.count({ where: { client: cred.uid } }),
+          cred,
+        ] as const;
+      }),
+    );
+
+    clients = withCount.toSorted(([a], [b]) => b - a);
+  }
+
+  response.json({
+    tailors,
+    clients,
   });
-
-  const withCount = await Promise.all(
-    credentials.map(async (cred) => {
-      return [
-        await Order.count({ where: { tailor: cred.uid } }),
-        cred,
-      ] as const;
-    }),
-  );
-
-  const sorted = withCount.toSorted(([a], [b]) => b - a);
-
-  response.json(sorted);
 });
 
 router.use((request, response, next) => {

@@ -1,0 +1,95 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar("", "client") }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Response Details", client) }}
+
+  <section class="dtms-details" id="accept-request-master-container">
+    <div class="dtms-details-image">
+      <img src="{{ design.image }}" alt="{{ design.title }}" />
+    </div>
+
+    <div>
+      <h5>Design Info</h5>
+      <ul>
+        <li>Title: {{ design.title }}</li>
+        <li>Description: {{ design.description }}</li>
+      </ul>
+    </div>
+
+    <div>
+      <div>
+        <h5>Response Info</h5>
+        <ul>
+          <li>ID: {{ tailorResponse.uid }}</li>
+          <li>
+            Proposed Price: N{{ tailorResponse.proposedPrice | formatPrice }}
+          </li>
+          <li>
+            Proposed Completion Date:
+            {{ tailorResponse.proposedCompletionDate.toLocaleString() }}
+          </li>
+          <li>
+            Status:
+            <button
+              class="dtms-core-button dtms-{{ tailorResponse.status }}-bg"
+            >
+              {{ tailorResponse.status }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Tailor Info</h5>
+        <ul>
+          <li>Name: {{ tailor.firstName }} {{ tailor.lastName }}</li>
+          <li>Number: {{ tailor.phone }}</li>
+          <li>Email: {{ tailor.email }}</li>
+          <li>Address: {{ tailor.address }}</li>
+          <li>Measruements:</li>
+          <ul>
+            {% for name, link in (tailor.socials | parse) %}
+              <li>
+                <a
+                  href="{{ link }}"
+                  style="color: blue; text-decoration: underline;"
+                  >{{ name }}</a
+                >
+              </li>
+            {% endfor %}
+          </ul>
+        </ul>
+      </div>
+      <div class="dtms-actions">
+        {% if tailorResponse.status === "pending" %}
+          <form
+            action="/dashboard/client/tailor-responses/reject-response/{{ tailorResponse.uid }}"
+            method="post"
+          >
+            <input
+              type="submit"
+              value="reject response"
+              class="dtms-cancelled-bg"
+            />
+          </form>
+          <form
+            action="/dashboard/client/tailor-responses/accept-response/{{ tailorResponse.uid }}"
+            method="post"
+          >
+            <input
+              type="submit"
+              value="accept response"
+              class="dtms-accepted-bg"
+            />
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

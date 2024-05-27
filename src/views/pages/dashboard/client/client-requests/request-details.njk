@@ -1,0 +1,56 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar("", "client") }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Request Details", client) }}
+
+  <section class="dtms-details" id="accept-request-master-container">
+    <div class="dtms-details-image">
+      <img src="{{ design.image }}" alt="{{ design.title }}" />
+    </div>
+
+    <div>
+      <h5>Design Info</h5>
+      <ul>
+        <li>Title: {{ design.title }}</li>
+        <li>Description: {{ design.description }}</li>
+      </ul>
+    </div>
+
+    <div>
+      <div>
+        <h5>Request Info</h5>
+        <ul>
+          <li>ID: {{ clientRequest.uid }}</li>
+          <li>
+            Status:
+            <button class="dtms-core-button dtms-{{ clientRequest.status }}-bg">
+              {{ clientRequest.status }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Tailor Info</h5>
+        <ul>
+          <li>Name: {{ tailor.firstName }} {{ tailor.lastName }}</li>
+          <li>Number: {{ tailor.phone }}</li>
+          <li>Email: {{ tailor.email }}</li>
+          <li>Address: {{ tailor.address }}</li>
+          <li>Measruements:</li>
+          <ul>
+            {% for name, link in (tailor.socials | parse) %}
+              <li><a href="{{ link }}">{{ link }}</a></li>
+            {% endfor %}
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,15 +1,60 @@
-{% extends "base.njk" %}
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
 
-{% block app %}
-  {% include "includes/preloader.njk" %}
+{% block sidebar %}
+  {{ dashboard.sidebar("home", "client") }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Home", client) }}
+  {{ dashboard.headsup(headsup) }}
 
   <section>
-    <header>
-      <h1>Home</h1>
-      <h4>{{ client.firstName }} {{ client.lastName }}</h4>
-    </header>
+    <h4>Tailor Responses</h4>
 
-    <h3>Heads Up</h3>
-    <pre>{{ headsUp | dump(2) }}</pre>
+    <table class="dtms-table">
+      <thead class="dtms-table-head">
+        <tr>
+          <th class="dtms-table-title dtms-table-cell">Design</th>
+          <th class="dtms-table-title dtms-table-cell">Title</th>
+          <th class="dtms-table-title dtms-table-cell">Status</th>
+          <th class="dtms-table-title dtms-table-cell">View</th>
+        </tr>
+      </thead>
+
+      <tbody class="dtms-table-body">
+        {% for item in trData %}
+          <tr class="dtms-table-row">
+            <td class="dtms-table-cell">
+              <img
+                class="dtms-table-image"
+                src="{{ item.design.image }}"
+                alt="#"
+              />
+            </td>
+            <td class="dtms-table-cell">{{ item.design.title }}</td>
+            <td class="dtms-table-cell">
+              <button
+                class="dtms-core-button dtms-status-indicator dtms-pending-bg"
+              >
+                pending
+              </button>
+            </td>
+            <td class="dtms-table-cell">
+              <a
+                href="/dashboard/client/tailor-responses/respons-details/{{ item.tailorResponse.uid }}"
+              >
+                <button class="dtms-core-button dtms-primary-bg">
+                  view resposne
+                </button>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
+
+  <style></style>
 {% endblock %}

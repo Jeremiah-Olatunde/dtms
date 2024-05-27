@@ -1,18 +1,13 @@
-{% extends "base.njk" %}
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
 
-{% block app %}
-  {% include "includes/preloader.njk" %}
+{% block sidebar %}
+  {{ dashboard.sidebar("profile", "client") }}
+{% endblock %}
 
+{% block content %}
+  {{ dashboard.header("Profile", client) }}
   <section>
-
-    <header>
-      <h1>Profile</h1>
-      <h4>{{ client.firstName }} {{ client.lastName }}</h3>
-    </header>
-
-    <p>
-      <pre>{{ client | dump(2) }}</pre>
-    </p>
-
+    <pre>{{ client | dump(2) }}</pre>
   </section>
 {% endblock %}

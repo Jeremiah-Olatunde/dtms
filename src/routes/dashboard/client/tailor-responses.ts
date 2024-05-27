@@ -7,6 +7,8 @@ import {
   TailorResponse,
   isTailorResponseStatus,
 } from "../../../models/TailorResponse.js";
+import { OrderDesign } from "../../../models/OrderDesign.js";
+import { Tailor } from "../../../models/Tailor.js";
 
 export const router = Router();
 
@@ -18,29 +20,50 @@ router.get("/:status", async (request, response) => {
   if (!isTailorResponseStatus(status))
     throw new Error(`invalid tailor response status: ${status}`);
 
-  const tailorResponses = await TailorResponse.findAll({
-    raw: true,
-    where: { client: client.uid, status },
-  });
+  const trData = await Promise.all(
+    (
+      await TailorResponse.findAll({
+        raw: true,
+        where: { client: client.uid, status },
+        order: [["updatedAt", "DESC"]],
+      })
+    ).map(async (tailorResponse) => ({
+      tailorResponse,
+      design: await OrderDesign.findByPk(tailorResponse.design, { raw: true }),
+    })),
+  );
 
   response.render(`pages/dashboard/client/tailor-responses.njk`, {
     client,
     status,
-    tailorResponses,
+    trData,
   });
 });
 
-router.get("/view-response/:uid", async (request, response) => {
-  const uid = request.params.uid;
+router.get("/response-details/:uid", async (request, response) => {
+  const { uid: uidClient } = request.session.user;
+  const client = (await Client.findByPk(uidClient, { raw: true }))!;
 
+  const uid = request.params.uid;
   const tailorResponse = await TailorResponse.findByPk(uid, { raw: true });
 
   if (tailorResponse === null)
     throw new Error(`Tailor Response with uid ${uid} not found`);
 
-  response.render("pages/dashboard/client/tailor-responses/view-response.njk", {
-    tailorResponse,
-  });
+  const tailor = (await Tailor.findByPk(tailorResponse.tailor, { raw: true }))!;
+  const design = (await OrderDesign.findByPk(tailorResponse.design, {
+    raw: true,
+  }))!;
+
+  response.render(
+    "pages/dashboard/client/tailor-responses/response-details.njk",
+    {
+      tailorResponse,
+      client,
+      tailor,
+      design,
+    },
+  );
 });
 
 router.post("/accept-response/:uid", async (request, response) => {
@@ -52,7 +75,7 @@ router.post("/accept-response/:uid", async (request, response) => {
 
   const uidOrder = nanoid();
 
-  await Order.create({
+  const or = await Order.create({
     uid: uidOrder,
 
     client: tailorResponse.client,
@@ -66,7 +89,12 @@ router.post("/accept-response/:uid", async (request, response) => {
 
   await tailorResponse.update({ status: "accepted", order: uidOrder });
 
-  response.set("HX-Refresh", "true").end();
+  console.log(tailorResponse.dataValues);
+  console.log(or.dataValues);
+
+  response.redirect(
+    `/dashboard/client/tailor-responses/response-details/${uidTailorResponse}`,
+  );
 });
 
 router.post("/reject-response/:uid", async (request, response) => {
@@ -77,5 +105,8 @@ router.post("/reject-response/:uid", async (request, response) => {
     throw new Error(`Tailor Response with uid ${uidTailorResponse} not found`);
 
   await tailorResponse.update({ status: "rejected" });
-  response.set("HX-Refresh", "true").end();
+
+  response.redirect(
+    `/dashboard/client/tailor-responses/response-details/${uidTailorResponse}`,
+  );
 });

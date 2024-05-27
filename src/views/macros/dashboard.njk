@@ -1,7 +1,7 @@
-{% macro header(main_header, tailor) %}
+{% macro header(main_header, user) %}
   <header class="dtms-content-header">
     <h4 class="dtms-main-header">{{ main_header }}</h4>
-    <p class="dtms-sub-header">{{ tailor.firstName }} {{ tailor.lastName }}</p>
+    <p class="dtms-sub-header">{{ user.firstName }} {{ user.lastName }}</p>
   </header>
 
   <style>
@@ -32,7 +32,7 @@
 
   <style>
     .dtms-headsup {
-      gap: 20px;
+      gap: 15px;
       display: flex;
       padding: 30px 0;
     }
@@ -54,7 +54,7 @@
     .dtms-headsup-value,
     .dtms-headsup-label {
       color: white;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
     }
 
@@ -107,7 +107,7 @@
   </style>
 {% endmacro %}
 
-{% macro sidebar(active) %}
+{% macro sidebar(active, usertype="tailor") %}
   <div class="dtms-sidebar-logo">
     <img src="/img/tms_logo-without-background.png" alt="#" />
   </div>
@@ -116,7 +116,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "home" }}"
-        href="/dashboard/tailor/home"
+        href="/dashboard/{{ usertype }}/home"
       >
         home
       </a>
@@ -124,7 +124,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "orders" }}"
-        href="/dashboard/tailor/orders/pending"
+        href="/dashboard/{{ usertype }}/orders/pending"
       >
         orders
       </a>
@@ -132,7 +132,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "client-requests" }}"
-        href="/dashboard/tailor/client-requests/pending"
+        href="/dashboard/{{ usertype }}/client-requests/pending"
       >
         client requests
       </a>
@@ -140,7 +140,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "tailor-responses" }}"
-        href="/dashboard/tailor/tailor-responses/pending"
+        href="/dashboard/{{ usertype }}/tailor-responses/pending"
       >
         tailor responses
       </a>
@@ -148,7 +148,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "profile" }}"
-        href="/dashboard/tailor/profile"
+        href="/dashboard/{{ usertype }}/profile"
       >
         profile
       </a>
@@ -156,7 +156,7 @@
     <li class="dtms-sidebar-link">
       <a
         class="{{ "active" if active === "reviews" }}"
-        href="/dashboard/tailor/reviews"
+        href="/dashboard/{{ usertype }}/reviews"
       >
         reviews
       </a>
