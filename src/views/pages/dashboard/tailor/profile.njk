@@ -1,0 +1,13 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar("profile") }}
+{% endblock %}
+
+{% block content %}
+  {{ dashboard.header("Profile", tailor) }}
+  <section>
+    <pre>{{ tailor | dump(2) }}</pre>
+  </section>
+{% endblock %}

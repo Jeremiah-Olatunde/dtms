@@ -1,0 +1,18 @@
+{% extends "base.njk" %}
+
+{% block app %}
+  {% include "includes/preloader.njk" %}
+
+  <section>
+    <header>
+      <h1>Reviews</h1>
+      <h3>{{ client.firstName }} {{ client.lastName }}</h3>
+    </header>
+
+    {% for review in reviews %}
+      <pre>{{ review | dump(2) }}</pre>
+      <hr />
+      <br />
+    {% endfor %}
+  </section>
+{% endblock %}

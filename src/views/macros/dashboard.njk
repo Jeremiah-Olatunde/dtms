@@ -1,0 +1,215 @@
+{% macro header(main_header, tailor) %}
+  <header class="dtms-content-header">
+    <h4 class="dtms-main-header">{{ main_header }}</h4>
+    <p class="dtms-sub-header">{{ tailor.firstName }} {{ tailor.lastName }}</p>
+  </header>
+
+  <style>
+    .dtms-content-header .dtms-main-header {
+      margin: 0;
+    }
+
+    .dtms-content-header {
+      padding-bottom: 20px;
+      border-bottom: 1px solid lavender;
+    }
+  </style>
+{% endmacro %}
+
+{% macro headsup(items) %}
+  <section class="dtms-headsup">
+    {% for item in items %}
+      <div
+        class="dtms-headsup-card dtms-border"
+        style="background: {{ item.color }}"
+      >
+        <img class="dtms-headsup-icon" src="{{ item.icon }}" alt="#" />
+        <div class="dtms-headsup-value">{{ item.value }}</div>
+        <div class="dtms-headsup-label">{{ item.label }}</div>
+      </div>
+    {% endfor %}
+  </section>
+
+  <style>
+    .dtms-headsup {
+      gap: 20px;
+      display: flex;
+      padding: 30px 0;
+    }
+
+    .dtms-headsup .dtms-headsup-card {
+      aspect-ratio: 1.25;
+      gap: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .dtms-headsup .dtms-headsup-icon {
+      width: 20%;
+      aspect-ratio: 1;
+    }
+
+    .dtms-headsup-value,
+    .dtms-headsup-label {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .dtms-headsup-value {
+      font-size: 25px;
+    }
+  </style>
+{% endmacro %}
+
+{% macro navigationTabs(baseUrl, statuses, current) %}
+  <section class="dtms-navigation-tabs">
+    {% for status in statuses %}
+      <form action="{{ baseUrl }}/{{ status }}" method="get">
+        <input
+          type="submit"
+          value="{{ status }}"
+          class="dtms-status-tab {{ "active" if current === status }}"
+        />
+      </form>
+    {% endfor %}
+  </section>
+  <style>
+    .dtms-navigation-tabs {
+      display: flex;
+      gap: 10px;
+      padding: 20px 0;
+    }
+
+    .dtms-navigation-tabs form {
+      flex-grow: 1;
+    }
+
+    .dtms-navigation-tabs input {
+      border: 0;
+      background: white;
+      padding: 0 10px;
+      color: white;
+      /*      font-variant: small-caps;*/
+      font-weight: 500;
+      width: 100%;
+      aspect-ratio: 7;
+      border: 2px solid #7166f0;
+      color: #7166f0;
+    }
+
+    .dtms-navigation-tabs input.active {
+      background: #7166f0;
+      color: white;
+    }
+  </style>
+{% endmacro %}
+
+{% macro sidebar(active) %}
+  <div class="dtms-sidebar-logo">
+    <img src="/img/tms_logo-without-background.png" alt="#" />
+  </div>
+
+  <ul class="dtms-sidebar-links">
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "home" }}"
+        href="/dashboard/tailor/home"
+      >
+        home
+      </a>
+    </li>
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "orders" }}"
+        href="/dashboard/tailor/orders/pending"
+      >
+        orders
+      </a>
+    </li>
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "client-requests" }}"
+        href="/dashboard/tailor/client-requests/pending"
+      >
+        client requests
+      </a>
+    </li>
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "tailor-responses" }}"
+        href="/dashboard/tailor/tailor-responses/pending"
+      >
+        tailor responses
+      </a>
+    </li>
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "profile" }}"
+        href="/dashboard/tailor/profile"
+      >
+        profile
+      </a>
+    </li>
+    <li class="dtms-sidebar-link">
+      <a
+        class="{{ "active" if active === "reviews" }}"
+        href="/dashboard/tailor/reviews"
+      >
+        reviews
+      </a>
+    </li>
+  </ul>
+
+  <form action="/dashboard/logout" method="get">
+    <input type="submit" value="Logout" class="dtms-logout" />
+  </form>
+
+  <style>
+    .dtms-sidebar-logo {
+      padding: 20px;
+    }
+
+    .dtms-sidebar-logo img {
+      width: 70%;
+    }
+
+    .dtms-sidebar-links {
+      margin: 0;
+      padding: 0;
+      flex: 1;
+    }
+
+    .dtms-sidebar-links li {
+      list-style: none;
+    }
+
+    .dtms-sidebar-links a,
+    .dtms-logout {
+      width: 100%;
+      color: #7e8ba0;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 22px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-transform: capitalize;
+      text-align: left;
+    }
+
+    .dtms-sidebar-links a.active {
+      background: #7166f0;
+      color: white;
+    }
+
+    input.dtms-logout {
+      border: 0;
+      background: none;
+      color: #7e8ba0;
+    }
+  </style>
+{% endmacro %}

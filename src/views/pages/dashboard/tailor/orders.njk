@@ -1,0 +1,65 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar("orders") }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Orders", tailor) }}
+
+  {{
+    dashboard.navigationTabs(
+      "/dashboard/tailor/orders",
+      ["pending", "cancelled", "completed"],
+      status
+    )
+  }}
+
+  <table class="dtms-table">
+    <thead class="dtms-table-head">
+      <tr>
+        <th class="dtms-table-title dtms-table-cell">Design</th>
+        <th class="dtms-table-title dtms-table-cell">Title</th>
+        <th class="dtms-table-title dtms-table-cell">Price</th>
+        <th class="dtms-table-title dtms-table-cell">Status</th>
+        <th class="dtms-table-title dtms-table-cell">View</th>
+      </tr>
+    </thead>
+
+    <tbody class="dtms-table-body">
+      {% for item in orders %}
+        <tr class="dtms-table-row">
+          <td class="dtms-table-cell">
+            <img
+              class="dtms-table-image"
+              src="{{ item.design.image }}"
+              alt="#"
+            />
+          </td>
+          <td class="dtms-table-cell">{{ item.design.title }}</td>
+          <td class="dtms-table-cell">N{{ item.order.price | formatPrice }}</td>
+          <td class="dtms-table-cell">
+            <button
+              class="dtms-core-button dtms-status-indicator dtms-{{ status }}-bg"
+            >
+              {{ status }}
+            </button>
+          </td>
+          <td class="dtms-table-cell">
+            <a
+              href="/dashboard/tailor/orders/order-details/{{ item.order.uid }}"
+            >
+              <button class="dtms-core-button dtms-primary-bg">
+                view order
+              </button>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <style></style>
+{% endblock %}

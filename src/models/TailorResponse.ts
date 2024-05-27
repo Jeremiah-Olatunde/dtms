@@ -7,27 +7,28 @@ import {
 } from "sequelize";
 import { sequelize } from "./db-connection.js";
 
-export type QuotationResponseState = "pending" | "rejected" | "accepted";
+export type TailorResponseStatus = "pending" | "rejected" | "accepted";
 
-export function isQuotationResponseState(x: any): x is QuotationResponseState {
+export function isTailorResponseStatus(x: any): x is TailorResponseStatus {
   return x === "pending" || x === "rejected" || x === "accepted";
 }
 
-class QuotationResponse extends Model<
-  InferAttributes<QuotationResponse>,
-  InferCreationAttributes<QuotationResponse>
+class TailorResponse extends Model<
+  InferAttributes<TailorResponse>,
+  InferCreationAttributes<TailorResponse>
 > {
   declare uid: string;
   declare tailor: string;
   declare client: string;
   declare design: string;
-  declare price: number;
-  declare completion: Date;
+
+  declare proposedPrice: number;
+  declare proposedCompletionDate: Date;
   declare order: CreationOptional<null | string>;
-  declare status: CreationOptional<QuotationResponseState>;
+  declare status: CreationOptional<TailorResponseStatus>;
 }
 
-QuotationResponse.init(
+TailorResponse.init(
   {
     uid: {
       unique: true,
@@ -51,20 +52,20 @@ QuotationResponse.init(
       defaultValue: null,
       type: DataTypes.CHAR(21),
     },
-    price: {
+    status: {
+      defaultValue: "pending",
+      type: DataTypes.ENUM("pending", "rejected", "accepted"),
+    },
+    proposedPrice: {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-    status: {
-      defaultValue: null,
-      type: DataTypes.ENUM("pending", "rejected", "accepted"),
-    },
-    completion: {
+    proposedCompletionDate: {
       allowNull: false,
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
   },
-  { sequelize, modelName: "QuotationResponse" },
+  { sequelize, modelName: "TailorResponse" },
 );
 
-export { QuotationResponse };
+export { TailorResponse };

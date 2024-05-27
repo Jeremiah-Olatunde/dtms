@@ -1,0 +1,30 @@
+{% extends "base.njk" %}
+
+{% block app %}
+  {% include "includes/preloader.njk" %}
+
+  <section>
+    <header>
+      <h1>Tailor Responses - {{ status }}</h1>
+      <h4>{{ client.firstName }} {{ client.lastName }}</h4>
+    </header>
+
+    {% for tailorResponse in tailorResponses %}
+      <pre>{{ tailorResponse | dump(2) }}</pre>
+      {% if status === "pending" %}
+        <button
+          hx-post="/dashboard/client/tailor-responses/accept-response/{{ tailorResponse.uid }}"
+        >
+          accept
+        </button>
+        <button
+          hx-post="/dashboard/client/tailor-responses/reject-response/{{ tailorResponse.uid }}"
+        >
+          reject
+        </button>
+      {% endif %}
+      <hr />
+      <br />
+    {% endfor %}
+  </section>
+{% endblock %}

@@ -2,10 +2,16 @@ import {
   Model,
   DataTypes,
   type InferAttributes,
-  type CreationOptional,
   type InferCreationAttributes,
+  CreationOptional,
 } from "sequelize";
 import { sequelize } from "./db-connection.js";
+
+export type OrderStatus = "pending" | "cancelled" | "completed";
+
+export function isOrderStatus(x: any): x is OrderStatus {
+  return x === "pending" || x === "cancelled" || x === "completed";
+}
 
 class Order extends Model<
   InferAttributes<Order>,
@@ -19,8 +25,7 @@ class Order extends Model<
   declare price: number;
   declare dueDate: Date;
   declare acceptedDate: Date;
-  declare status: CreationOptional<"pending" | "cancelled" | "completed">;
-  declare timeline: CreationOptional<"on track" | "overdue" | "critical">;
+  declare status: CreationOptional<OrderStatus>;
 }
 
 Order.init(
@@ -49,27 +54,16 @@ Order.init(
     },
     dueDate: {
       allowNull: false,
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     acceptedDate: {
       allowNull: false,
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
     },
     status: {
       allowNull: false,
       defaultValue: "pending",
       type: DataTypes.ENUM("pending", "cancelled", "completed"),
-    },
-    timeline: {
-      type: DataTypes.VIRTUAL, // DataTypes.ENUM("on track", "critical", "overdue"),
-      get() {
-        const due = this.getDataValue("dueDate").getTime();
-        const delta = (due - Date.now()) / (1000 * 60 * 60 * 24);
-
-        if (delta < 0) return "overdue";
-        if (delta < 14) return "critical";
-        return "on track";
-      },
     },
   },
   { sequelize, modelName: "Order" },

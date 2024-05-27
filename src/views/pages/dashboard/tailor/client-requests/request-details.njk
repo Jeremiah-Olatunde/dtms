@@ -1,0 +1,146 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar() }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Request Details", tailor) }}
+
+  <section class="dtms-details">
+    <div class="dtms-details-image">
+      <img src="{{ design.image }}" alt="{{ design.title }}" />
+    </div>
+
+    <div>
+      <h5>Design Info</h5>
+      <ul>
+        <li>Title: {{ design.title }}</li>
+        <li>Description: {{ design.description }}</li>
+      </ul>
+    </div>
+
+    <div>
+      <div>
+        <h5>Request Info</h5>
+        <ul>
+          <li>ID: {{ clientRequest.uid }}</li>
+          <li>
+            Status:
+            <button class="dtms-core-button dtms-{{ clientRequest.status }}-bg">
+              {{ clientRequest.status }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Client Info</h5>
+        <ul>
+          <li>Name: {{ client.firstName }} {{ client.lastName }}</li>
+          <li>Number: {{ client.phone }}</li>
+          <li>Email: {{ client.email }}</li>
+          <li>Address: {{ client.address }}</li>
+          <li>Measruements:</li>
+          <ul>
+            {% for part, measurement in (client.measurements | parse) %}
+              <li>{{ part }}: {{ measurement }}</li>
+            {% endfor %}
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dtms-actions">
+      {% if clientRequest.status === "pending" %}
+        <form
+          action="/dashboard/tailor/client-requests/reject-request/{{ clientRequest.uid }}"
+          method="post"
+        >
+          <input
+            type="submit"
+            value="reject request"
+            class="dtms-rejected-bg"
+          />
+        </form>
+
+        <button
+          class="dtms-core-button dtms-accepted-bg"
+          id="accept-request-btn"
+        >
+          accept request
+        </button>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="accept-modal" id="accept-request-modal">
+    <div class="accept-container" id="accept-request-container">
+      <h4>Quotation Details</h4>
+
+      <form
+        action="/dashboard/tailor/client-requests/accept-request/{{ clientRequest.uid }}"
+        method="post"
+        class="accept-form"
+      >
+        <input
+          type="number"
+          name="proposedPrice"
+          placeholder="proposed price"
+        />
+        <br />
+        <br />
+        <input
+          type="date"
+          name="proposedCompletionDate"
+          placeholder="proposed completion date"
+        />
+        <br />
+        <br />
+        <input
+          type="submit"
+          value="PROCEED"
+          class="dtms-accepted-bg"
+          style="
+            font-size: 20px;
+            color: white;
+            font-weight: 600;
+          "
+        />
+      </form>
+    </div>
+  </div>
+
+  <style>
+    .accept-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: grid;
+      place-items: center;
+    }
+
+    .accept-container {
+      background: white;
+      padding: 30px;
+    }
+
+    .accept-form input {
+      border: 0;
+      padding: 0 10px;
+      font-weight: 500;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 7;
+    }
+
+    .accept-form {
+      width: 500px;
+    }
+  </style>
+{% endblock %}

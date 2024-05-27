@@ -1,0 +1,62 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar("tailor-responses") }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Tailor Response", tailor) }}
+  {{
+    dashboard.navigationTabs(
+      "/dashboard/tailor/tailor-responses",
+      ["pending", "rejected", "accepted"],
+      status
+    )
+  }}
+
+  <table class="dtms-table">
+    <thead class="dtms-table-head">
+      <tr>
+        <th class="dtms-table-title dtms-table-cell">Design</th>
+        <th class="dtms-table-title dtms-table-cell">Title</th>
+        <th class="dtms-table-title dtms-table-cell">Status</th>
+        <th class="dtms-table-title dtms-table-cell">View</th>
+      </tr>
+    </thead>
+
+    <tbody class="dtms-table-body">
+      {% for item in trData %}
+        <tr class="dtms-table-row">
+          <td class="dtms-table-cell">
+            <img
+              class="dtms-table-image"
+              src="{{ item.design.image }}"
+              alt="#"
+            />
+          </td>
+          <td class="dtms-table-cell">{{ item.design.title }}</td>
+          <td class="dtms-table-cell">
+            <button
+              class="dtms-core-button dtms-status-indicator dtms-{{ status }}-bg"
+            >
+              {{ status }}
+            </button>
+          </td>
+          <td class="dtms-table-cell">
+            <a
+              href="/dashboard/tailor/tailor-responses/response-details/{{ item.tailorResponse.uid }}"
+            >
+              <button class="dtms-core-button dtms-primary-bg">
+                view response
+              </button>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <style></style>
+{% endblock %}

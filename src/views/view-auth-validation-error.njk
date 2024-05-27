@@ -1,0 +1,37 @@
+<div
+  class="form-validation-modal"
+  id="form-validation-modal"
+  hx-signup-validation
+>
+  <div
+    hx-form-validation-error
+    class="form-validation-content"
+    style="border: 4px solid firebrick;"
+    id="signup-error"
+  >
+    <header>
+      <h3
+        class="ecom-wc__form-title ecom-wc__form-title__one"
+        style="text-align: center"
+      >
+        Validation Error
+      </h3>
+    </header>
+    <p style="padding: 10px 0; color: firebrick; text-align: center;">
+      {{ reason }}
+    </p>
+    <button
+      style="
+      display: block;
+      width: 100%;
+      font-weight: 600;
+      background: #f2c94c;
+      padding: 15px;
+      font-size: 20px;
+    "
+      id="close-btn"
+    >
+      Close
+    </button>
+  </div>
+</div>

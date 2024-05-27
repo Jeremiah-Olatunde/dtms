@@ -1,0 +1,15 @@
+{% extends "base.njk" %}
+
+{% block app %}
+  {% include "includes/preloader.njk" %}
+
+  <section>
+    <header>
+      <h1>Home</h1>
+      <h4>{{ client.firstName }} {{ client.lastName }}</h4>
+    </header>
+
+    <h3>Heads Up</h3>
+    <pre>{{ headsUp | dump(2) }}</pre>
+  </section>
+{% endblock %}

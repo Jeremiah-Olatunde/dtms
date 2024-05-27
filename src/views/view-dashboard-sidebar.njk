@@ -1,0 +1,13 @@
+<a href="#" class="sidebar-logo">
+  <img src="/img/tms_logo-without-background.png" alt="#" />
+</a>
+
+{% for item in items %}
+  <a
+    class="sidebar-item"
+    href="/dashboard/{{ usertype }}/{{ item.name }}"
+    {{ "sidebar-active" if item.active }}
+  >
+    {{ item.name | dehyphenateAndCapitalize }}
+  </a>
+{% endfor %}

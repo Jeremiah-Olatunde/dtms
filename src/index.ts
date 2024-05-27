@@ -18,7 +18,7 @@ import { router as tailors } from "./routes/tailors.js";
 import { router as contact } from "./routes/contact.js";
 import { router as designs } from "./routes/designs.js";
 import { router as auth } from "./routes/auth.js";
-// import { router as dashboard } from "./routes/router-dashboard.js";
+import { router as dashboard } from "./routes/dashboard.js";
 
 const PORT = process.env.PORT || 8080;
 const DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -101,6 +101,7 @@ nunjucks
   .addFilter("toEnglish", (x: number, s: string): string => {
     return `${x} ${s}${1 === x ? "" : "s"}`;
   })
+  .addFilter("parse", JSON.parse)
   .addFilter("daysSince", function (date: Date): number {
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - date.getTime();
@@ -114,4 +115,4 @@ app.use("/tailors", tailors);
 app.use("/contact", contact);
 app.use("/designs", designs);
 app.use("/auth", auth);
-// app.use("/dashboard", dashboard);
+app.use("/dashboard", dashboard);

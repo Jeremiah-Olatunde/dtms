@@ -7,25 +7,25 @@ import {
 } from "sequelize";
 import { sequelize } from "./db-connection.js";
 
-export type QuotationRequestState = "pending" | "rejected" | "accepted";
+export type ClientRequestStatus = "pending" | "rejected" | "accepted";
 
-export function isQuotationRequestState(x: any): x is QuotationRequestState {
+export function isClientRequestStatus(x: any): x is ClientRequestStatus {
   return x === "pending" || x === "rejected" || x === "accepted";
 }
 
-class QuotationRequest extends Model<
-  InferAttributes<QuotationRequest>,
-  InferCreationAttributes<QuotationRequest>
+class ClientRequest extends Model<
+  InferAttributes<ClientRequest>,
+  InferCreationAttributes<ClientRequest>
 > {
   declare uid: string;
   declare tailor: string;
   declare client: string;
   declare design: string;
   declare response: CreationOptional<null | string>;
-  declare status: CreationOptional<QuotationRequestState>;
+  declare status: CreationOptional<ClientRequestStatus>;
 }
 
-QuotationRequest.init(
+ClientRequest.init(
   {
     uid: {
       unique: true,
@@ -55,7 +55,7 @@ QuotationRequest.init(
       type: DataTypes.ENUM("pending", "rejected", "accepted"),
     },
   },
-  { sequelize, modelName: "QuotationRequest" },
+  { sequelize, modelName: "ClientRequest" },
 );
 
-export { QuotationRequest };
+export { ClientRequest };

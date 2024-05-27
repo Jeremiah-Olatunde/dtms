@@ -1,0 +1,79 @@
+{% import "macros/dashboard.njk" as dashboard %}
+{% extends "pages/dashboard/dashboard-template.njk" %}
+
+{% block sidebar %}
+  {{ dashboard.sidebar() }}
+{% endblock %}
+
+{% block content %}
+
+  {{ dashboard.header("Order Details", tailor) }}
+
+  <section class="dtms-details">
+    <div class="dtms-details-image">
+      <img src="{{ design.image }}" alt="{{ design.title }}" />
+    </div>
+
+    <div>
+      <div>
+        <h5>Order Info</h5>
+        <ul>
+          <li>ID: {{ order.uid }}</li>
+          <li>
+            Status:
+            <button class="dtms-core-button dtms-{{ order.status }}-bg">
+              {{ order.status }}
+            </button>
+          </li>
+          <li>Service Price: N{{ order.price | formatPrice }}</li>
+          <li>Due Date: {{ order.dueDate.toLocaleString() }}</li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Design Info</h5>
+        <ul>
+          <li>Title: {{ design.title }}</li>
+          <li>Description: {{ design.description }}</li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Client Info</h5>
+        <ul>
+          <li>Name: {{ client.firstName }} {{ client.lastName }}</li>
+          <li>Number: {{ client.phone }}</li>
+          <li>Email: {{ client.email }}</li>
+          <li>Address: {{ client.address }}</li>
+          <li>Measruements:</li>
+          <ul>
+            {% for part, measurement in (client.measurements | parse) %}
+              <li>{{ part }}: {{ measurement }}</li>
+            {% endfor %}
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dtms-actions">
+      {% if order.status === "pending" %}
+        <form
+          action="/dashboard/tailor/orders/cancel-order/{{ order.uid }}"
+          method="post"
+        >
+          <input type="submit" value="cancel order" class="dtms-cancelled-bg" />
+        </form>
+        <form
+          action="/dashboard/tailor/orders/complete-order/{{ order.uid }}"
+          method="post"
+        >
+          <input
+            type="submit"
+            value="complete order"
+            class="dtms-completed-bg"
+          />
+        </form>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

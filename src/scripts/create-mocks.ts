@@ -1,18 +1,18 @@
 import "dotenv/config";
 import { readdirSync } from "fs";
-import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
 
 import {
-  reset,
+  mockClientRequests,
   mockClients,
-  mockTailors,
-  mockTailorDesigns,
   mockCredentials,
-  mockOrders,
   mockOrderReviews,
-  mockQuotationRequests,
-  mockQuotationResponses,
+  mockOrders,
+  mockTailorDesigns,
+  mockTailorResponses,
+  mockTailors,
+  reset,
 } from "../models/mock-models.js";
 
 const base = resolve(
@@ -39,11 +39,11 @@ await mockTailorDesigns(100, tailors, {
   images: readdirSync(resolve(base, "./designs")),
 });
 
-const requests = await mockQuotationRequests(750, clients, tailors, {
+const requests = await mockClientRequests(750, clients, tailors, {
   baseUrl: "/img/mock/designs",
   images: readdirSync(resolve(base, "./designs")),
 });
 
-const responses = await mockQuotationResponses(requests);
+const responses = await mockTailorResponses(requests);
 const orders = await mockOrders(responses);
 await mockOrderReviews(orders);

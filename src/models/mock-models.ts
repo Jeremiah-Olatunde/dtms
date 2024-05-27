@@ -1,26 +1,26 @@
-import { nanoid } from "nanoid";
 import { faker } from "@faker-js/faker";
+import { nanoid } from "nanoid";
 
 import * as date from "../utils/date.js";
 import * as random from "../utils/random.js";
 
-import { Credentials } from "./Credentials.js";
-import { Tailor, SOCIALS, Socials } from "./Tailor.js";
 import { Client, GENDERS, MEASUREMENTS } from "./Client.js";
+import { Credentials } from "./Credentials.js";
+import { SOCIALS, Socials, Tailor } from "./Tailor.js";
 import {
   TailorDesign,
-  isType,
-  isGroup,
-  isStyle,
   isGender,
+  isGroup,
   isOccasion,
+  isStyle,
+  isType,
 } from "./TailorDesign.js";
 
+import { ClientRequest } from "./ClientRequest.js";
 import { Order } from "./Order.js";
 import { OrderDesign } from "./OrderDesign.js";
-import { QuotationRequest } from "./QuotationRequest.js";
-import { QuotationResponse } from "./QuotationResponse.js";
 import { OrderReview } from "./OrderReview.js";
+import { TailorResponse } from "./TailorResponse.js";
 
 const phonePrefixes = ["070", "081", "080", "090"];
 
@@ -163,7 +163,7 @@ export async function mockTailorDesigns(
   return designs;
 }
 
-export async function mockQuotationRequests(
+export async function mockClientRequests(
   size: number,
   clients: Client[],
   tailors: Tailor[],
@@ -171,8 +171,8 @@ export async function mockQuotationRequests(
     baseUrl: string;
     images: string[];
   },
-): Promise<QuotationRequest[]> {
-  const quotationRequests: QuotationRequest[] = [];
+): Promise<ClientRequest[]> {
+  const clientRequests: ClientRequest[] = [];
 
   for (let i = 0; i < size; i++) {
     const design = await OrderDesign.create({
@@ -182,8 +182,8 @@ export async function mockQuotationRequests(
       image: `${imageData.baseUrl}/${random.choice(imageData.images)}`,
     });
 
-    quotationRequests.push(
-      await QuotationRequest.create({
+    clientRequests.push(
+      await ClientRequest.create({
         uid: nanoid(),
         design: design.uid,
         client: random.choice(clients).uid,
@@ -192,79 +192,77 @@ export async function mockQuotationRequests(
     );
   }
 
-  return quotationRequests;
+  return clientRequests;
 }
 
-export async function mockQuotationResponses(
-  quotationRequests: QuotationRequest[],
-): Promise<QuotationResponse[]> {
-  const quotationResponses: QuotationResponse[] = [];
+export async function mockTailorResponses(
+  clientRequests: ClientRequest[],
+): Promise<TailorResponse[]> {
+  const tailorResponses: TailorResponse[] = [];
 
-  for (const quotationRequest of quotationRequests) {
+  for (const tailorRequest of clientRequests) {
     const status = random.choice(["pending", "rejected", "accepted"] as const);
 
     switch (status) {
       case "pending":
         continue;
       case "rejected":
-        await quotationRequest.update({ status: "rejected" });
+        await tailorRequest.update({ status: "rejected" });
         continue;
       case "accepted":
-        await quotationRequest.update({ status: "accepted" });
+        await tailorRequest.update({ status: "accepted" });
         break;
     }
 
     const uid = nanoid();
-    await quotationRequest.update({ response: uid });
+    await tailorRequest.update({ response: uid });
 
-    quotationResponses.push(
-      await QuotationResponse.create({
+    tailorResponses.push(
+      await TailorResponse.create({
         uid,
-        tailor: quotationRequest.tailor,
-        client: quotationRequest.client,
-        design: quotationRequest.design,
-        completion: date.range(new Date(), 90),
-        price: random.range(10_000, 1_000_000),
+        tailor: tailorRequest.tailor,
+        client: tailorRequest.client,
+        design: tailorRequest.design,
+        proposedPrice: random.range(10_000, 1_000_000),
+        proposedCompletionDate: date.range(new Date(), 90),
       }),
     );
   }
 
-  return quotationResponses;
+  return tailorResponses;
 }
 
 export async function mockOrders(
-  quotationResponses: QuotationResponse[],
-  reset?: boolean,
+  tailorResponses: TailorResponse[],
 ): Promise<Order[]> {
   const orders: Order[] = [];
 
-  for (const quotationResponse of quotationResponses) {
+  for (const tailorResponse of tailorResponses) {
     const status = random.choice(["pending", "rejected", "accepted"] as const);
 
     switch (status) {
       case "pending":
         continue;
       case "rejected":
-        await quotationResponse.update({ status: "rejected" });
+        await tailorResponse.update({ status: "rejected" });
         continue;
       case "accepted":
-        await quotationResponse.update({ status: "accepted" });
+        await tailorResponse.update({ status: "accepted" });
         break;
     }
 
     const uid = nanoid();
-    await quotationResponse.update({ order: uid });
+    await tailorResponse.update({ order: uid });
 
     orders.push(
       await Order.create({
         uid,
         acceptedDate: new Date(),
-        dueDate: quotationResponse.completion,
-
-        price: quotationResponse.price,
-        tailor: quotationResponse.tailor,
-        client: quotationResponse.client,
-        design: quotationResponse.design,
+        tailor: tailorResponse.tailor,
+        client: tailorResponse.client,
+        design: tailorResponse.design,
+        price: tailorResponse.proposedPrice,
+        dueDate: tailorResponse.proposedCompletionDate,
       }),
     );
   }
@@ -321,6 +319,6 @@ export async function reset() {
   await Order.sync({ force: true });
   await OrderReview.sync({ force: true });
   await OrderDesign.sync({ force: true });
-  await QuotationRequest.sync({ force: true });
-  await QuotationResponse.sync({ force: true });
+  await ClientRequest.sync({ force: true });
+  await TailorResponse.sync({ force: true });
 }

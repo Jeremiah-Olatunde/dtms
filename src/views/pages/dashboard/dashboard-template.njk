@@ -1,0 +1,180 @@
+{% extends "base.njk" %}
+{% block app %}
+  {% include "includes/preloader.njk" %}
+  <section class="dtms-dashboard">
+    <aside class="dtms-sidebar dtms-border">
+      {% block sidebar %}
+      {% endblock %}
+    </aside>
+
+    <main class="dtms-content dtms-border">
+      {% block content %}
+      {% endblock %}
+    </main>
+  </section>
+
+  <style>
+    .dtms-dashboard {
+      height: 100vh;
+      padding: 20px;
+
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: 0.225fr 0.775fr;
+    }
+
+    .dtms-sidebar {
+      background: #f7f7fd;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dtms-content {
+      overflow-y: scroll;
+      padding: 30px;
+      position: relative;
+    }
+
+    .dtms-border {
+      border-radius: 5px;
+      border: 1px solid lavender;
+    }
+
+    /*
+      Used by template callers
+    */
+
+    .dtms-core-button {
+      border: 0;
+      border-radius: 5px;
+      background: white;
+      padding: 10px;
+      color: white;
+      font-size: 15px;
+      font-variant: small-caps;
+      font-weight: 700;
+    }
+
+    .dtms-status-indicator {
+      cursor: unset;
+    }
+
+    .dtms-green-bg,
+    .dtms-completed-bg,
+    .dtms-accepted-bg {
+      background: #1ec38b !important;
+    }
+
+    .dtms-yellow-bg,
+    .dtms-critical-bg,
+    .dtms-pending-bg {
+      background: #f2c94c !important;
+    }
+
+    .dtms-red-bg,
+    .dtms-cancelled-bg,
+    .dtms-rejected-bg {
+      background: firebrick !important;
+    }
+
+    .dtms-primary-bg {
+      background: #7166f0 !important;
+    }
+
+    .dtms-table-image {
+      width: 45px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    /* ---------------------------------------------------------*/
+    .dtms-order-status-tabs {
+      display: flex;
+      gap: 10px;
+      padding: 20px 0;
+    }
+
+    .dtms-order-status-tabs form {
+      flex-grow: 1;
+    }
+
+    .dtms-order-status-tabs input {
+      border: 0;
+      background: white;
+      padding: 0 10px;
+      color: white;
+      /*      font-variant: small-caps;*/
+      font-weight: 500;
+      width: 100%;
+      aspect-ratio: 7;
+      border: 2px solid #7166f0;
+      color: #7166f0;
+    }
+
+    .dtms-order-status-tabs input.active {
+      background: #7166f0;
+      color: white;
+    }
+
+    .dtms-table-head {
+      border-top: 1px solid lavender;
+      border-bottom: 1px solid lavender;
+    }
+
+    .dtms-table-title {
+      font-weight: 400;
+      font-size: 16px;
+      color: #7e8ba0;
+    }
+
+    .dtms-table-cell {
+      padding: 10px 0;
+    }
+
+    .dtms-table-row {
+      border-bottom: 1px solid lavender;
+    }
+
+/* -------------------------------------------*/
+    .dtms-details {
+      padding-top: 20px;
+      display: grid;
+      grid-gap: 20px;
+      grid-template-rows: auto min-content;
+      grid-template-columns: 0.45fr 0.55fr;
+    }
+
+    .dtms-details-image {
+      grid-row: 1 / span 2;
+
+    }
+
+    .dtms-details .dtms-details-image img {
+      height: 100%;
+      object-fit: cover;
+      max-height: 600px;
+      border: 2px solid lavender;
+    }
+
+    .dtms-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dtms-actions form, .dtms-actions button {
+      flex-grow: 1;
+    }
+
+    .dtms-actions input {
+      border: 0;
+      padding: 0 10px;
+      color: white;
+      font-weight: 500;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 7;
+    }
+  </style>
+  </style>
+{% endblock %}
