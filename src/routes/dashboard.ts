@@ -4,8 +4,26 @@ import { router as tailor } from "./dashboard/tailor.js";
 
 import { Credentials } from "../models/Credentials.js";
 import { Order } from "../models/Order.js";
+import { Tailor } from "../models/Tailor.js";
+import { Client } from "../models/Client.js";
 
 export const router = Router();
+
+router.get("/get-details/tailor/:email", async (request, response) => {
+  const tailor = await Tailor.findOne({
+    where: { email: request.params.email },
+    raw: true,
+  });
+  response.json(tailor);
+});
+
+router.get("/get-details/client/:email", async (request, response) => {
+  const client = await Client.findOne({
+    where: { email: request.params.email },
+    raw: true,
+  });
+  response.json(client);
+});
 
 router.get("/mock-login-details", async (_, response) => {
   let tailors;
