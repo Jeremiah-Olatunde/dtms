@@ -47,15 +47,14 @@ htmx.onLoad(() => {
 //=============================================================================
 
 htmx.onLoad(() => {
-  $("#accept-request-modal").fadeOut(0);
+  console.log($("body").offset());
+
   $("#accept-request-btn").click((event) => {
-    $("#accept-request-modal").fadeIn(300, () => {
-      $("body").on("click.foo", (event) => {
-        if (event.target.closest("#accept-request-container") === null) {
-          $("#accept-request-modal").fadeOut(400);
-          $("body").off("click.foo");
-        }
-      });
-    });
+    $("#accept-request-modal").css("display", "grid");
+    $("#accept-request-modal").css("display", "grid");
+  });
+
+  $("#accept-request-close").click((event) => {
+    $("#accept-request-modal").fadeOut(300);
   });
 });
