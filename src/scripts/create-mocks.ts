@@ -39,7 +39,7 @@ await mockTailorDesigns(100, tailors, {
   images: readdirSync(resolve(base, "./designs")),
 });
 
-const requests = await mockClientRequests(750, clients, tailors, {
+const requests = await mockClientRequests(500, clients, tailors, {
   baseUrl: "/img/mock/designs",
   images: readdirSync(resolve(base, "./designs")),
 });
