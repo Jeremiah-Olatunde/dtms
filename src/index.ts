@@ -103,9 +103,11 @@ nunjucks
     return `${x} ${s}${1 === x ? "" : "s"}`;
   })
   .addFilter("parse", JSON.parse)
-  .addFilter("daysSince", function (date: Date): number {
+  .addFilter("daysSince", function (strDate: Date): number {
+    const date = new Date(strDate);
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - date.getTime();
+
     const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     return daysDifference;
   });
