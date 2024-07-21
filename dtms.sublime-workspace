@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Or",
+				"Order"
+			],
+			[
 				"text-gray",
 				"text-gray-500"
 			],
@@ -510,15 +514,34 @@
 			[
 				"que",
 				"querySelector"
-			],
-			[
-				"HTMLTA",
-				"HTMLTableCellElement"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "src/index.ts",
+			"settings":
+			{
+				"buffer_size": 3573,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "dist/views/pages/tailor-profile/reviews.njk",
+			"settings":
+			{
+				"buffer_size": 3393,
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -531,6 +554,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"enable",
+				"LSP: Enable Language Server in Project"
+			],
 			[
 				"save pro",
 				"Project: Save As"
@@ -582,10 +609,6 @@
 			[
 				"proje",
 				"Project: Save As"
-			],
-			[
-				"enable",
-				"LSP: Enable Language Server in Project"
 			],
 			[
 				"pro",
@@ -1049,10 +1072,19 @@
 	},
 	"expanded_folders":
 	[
-		"/D/coding/projects/dtms"
+		"/D/coding/projects/dtms",
+		"/D/coding/projects/dtms/src"
 	],
 	"file_history":
 	[
+		"/D/coding/projects/dtms/dist/views/pages/tailor-profile.njk",
+		"/D/coding/projects/dtms/src/views/pages/tailor-profile/reviews.njk",
+		"/D/coding/projects/dtms/src/views/pages/home.njk",
+		"/D/coding/projects/dtms/dist/views/includes/navigation.njk",
+		"/D/coding/projects/dtms/package.json",
+		"/D/coding/projects/dtms/src/index.ts",
+		"/D/coding/projects/dtms/.env",
+		"/D/coding/projects/dtms/src/models/db-connection.ts",
 		"/D/coding/sandbox/tailwind/maiden/index.html",
 		"/D/coding/sandbox/tailwind/maiden/dashboard-home.html",
 		"/D/coding/sandbox/tailwind/maiden/login.html",
@@ -1172,25 +1204,18 @@
 		"/D/coding/sandbox/deno/maiden/main.tsx",
 		"/D/coding/sandbox/deno/maiden/test-project.sublime-project",
 		"/D/coding/sandbox/deno/maiden/main_test.ts",
-		"/D/coding/dsa/clrs/README.md",
-		"/D/coding/dsa/clrs/index.ts",
-		"/D/coding/dsa/clrs/package.json",
-		"/D/coding/sandbox/designs/border-line/src/style.css",
-		"/D/coding/sandbox/designs/border-line/src/main.ts",
-		"/D/coding/sandbox/designs/border-line/public/fonts/Montserrat/Montserrat.css",
-		"/D/coding/sandbox/designs/border-line/public/fonts/Lato/Lato.css",
-		"/D/coding/sandbox/designs/border-line/package.json",
-		"/D/coding/sandbox/designs/border-line/public/css/preflight.css"
+		"/D/coding/dsa/clrs/README.md"
 	],
 	"find":
 	{
-		"height": 27.2
+		"height": 70.0
 	},
 	"find_in_files":
 	{
 		"height": 243.2,
 		"where_history":
 		[
+			"D:\\coding\\projects\\dtms\\src\\views,<project filters>"
 		]
 	},
 	"find_state":
@@ -1198,6 +1223,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"daysSince",
+			"# ",
 			"summary",
 			"ipsum",
 			" class=\" \"",
@@ -1323,9 +1350,7 @@
 			"class=\"p-2",
 			"class",
 			"div",
-			"border-2 border-",
-			"border-2 border-red",
-			"h-6 w-6"
+			"border-2 border-"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1347,6 +1372,91 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/index.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3573,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2876,
+								2876
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html, text.xml"
+								},
+								{
+									"rhs_empty": true,
+									"selector": "punctuation.accessor"
+								},
+								{
+									"characters": ".\"'/@<",
+									"selector": "meta.tag, source - comment - string.quoted.double.block - string.quoted.single.block - string.unquoted.heredoc",
+									"server": "LSP-typescript"
+								}
+							],
+							"lsp_active": true,
+							"lsp_uri": "file:///D:/coding/projects/dtms/src/index.ts",
+							"rainbow_checked": true,
+							"show_definitions": false,
+							"syntax": "Packages/JavaScript/TypeScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1604.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dist/views/pages/tailor-profile/reviews.njk",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								244,
+								244
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///D:/coding/projects/dtms/dist/views/pages/tailor-profile/reviews.njk",
+							"rainbow_checked": true,
+							"syntax": "Packages/Nunjucks/Syntaxes/Nunjucks.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1419,6 +1529,38 @@
 		"selected_items":
 		[
 			[
+				"tailor-profile\\reviews.njk",
+				"dist\\views\\pages\\tailor-profile\\reviews.njk"
+			],
+			[
+				"tailor-profile/review",
+				"src\\views\\pages\\tailor-profile\\reviews.njk"
+			],
+			[
+				"tailor-pro",
+				"dist\\views\\pages\\tailor-profile.njk"
+			],
+			[
+				"navi",
+				"dist\\views\\includes\\navigation.njk"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"index",
+				"src\\index.ts"
+			],
+			[
+				"db-con",
+				"src\\models\\db-connection.ts"
+			],
+			[
+				".en",
+				".env"
+			],
+			[
 				"login",
 				"login.html"
 			],
@@ -1429,10 +1571,6 @@
 			[
 				"index.cs",
 				"src\\index.css"
-			],
-			[
-				"index",
-				"index.html"
 			],
 			[
 				"ten",
@@ -1553,10 +1691,6 @@
 			[
 				"arra",
 				"src\\scripts\\utilities\\array.ts"
-			],
-			[
-				"pack",
-				"package.json"
 			],
 			[
 				"tsconf",
@@ -1905,30 +2039,6 @@
 			[
 				"tailorhome.ts",
 				"src\\routes\\dashboard\\tailor\\home.ts"
-			],
-			[
-				"tailorres",
-				"src\\routes\\dashboard\\client\\tailor-responses.ts"
-			],
-			[
-				"mock-mod",
-				"src\\models\\mock-models.ts"
-			],
-			[
-				"TailorResp",
-				"src\\models\\TailorResponse.ts"
-			],
-			[
-				"ClientRe",
-				"src\\models\\ClientRequest.ts"
-			],
-			[
-				"dashboard.",
-				"src\\routes\\dashboard.ts"
-			],
-			[
-				"home.ts",
-				"src\\routes\\dashboard\\client\\home.ts"
 			]
 		],
 		"width": 0.0
@@ -1963,7 +2073,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 301.0,
+	"side_bar_width": 276.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
